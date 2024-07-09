@@ -1,9 +1,24 @@
 import '../assets/style/services_css/main.scss'
+import acIcon from '../assets/images/services/air-conditioner-svgrepo-com.svg'
+import tvIcon from '../assets/images/services/television-screen-svgrepo-com.svg';
+import wifiIcon from '../assets/images/services/wifi-svgrepo-com.svg';
+import keyIcon from '../assets/images/services/key-square-2-svgrepo-com.svg'
+import coffeeMachineIcon from '../assets/images/services/key-square-2-svgrepo-com.svg';
+import tissueBoxIcon from '../assets/images/services/tissue-svgrepo-com.svg';
+import hairDryerIcon from '../assets/images/services/hair-dryer-dryer-svgrepo-com.svg';
+import squareParkingIcon from '../assets/images/services/square-parking-svgrepo-com.svg'
+
+import serviceImg4 from '../assets/images/services/services-04.jpg'
+import serviceImg5 from '../assets/images/services/services-05.jpg'
+import serviceImg6 from '../assets/images/services/services-06.jpg'
+
+import crossKniefImg from '../assets/images/services/crossed-knife-and-fork-svgrepo-com.svg';
+
 const Services = () => {
   return (
-    <div classname="container-fluid">
+    <div className="services container-fluid">
       {/*================= Banner Section Start ==================*/}
-      <div className="banner container-fluid text-center d-flex align-items-center justify-content-center">
+      <div className="service-banner container-fluid text-center d-flex align-items-center justify-content-center">
         <h1 className=" border-2 border-bottom border-white">SERVICES</h1>
       </div>
       {/*================= Services Icons Section Start ==================*/}
@@ -13,49 +28,49 @@ const Services = () => {
             <div className="row pt-5 pb-sm-5 align-items-center justify-content-center">
               <div className=" card col-10 col-sm-3 ServicesIcons-card align-items-center p-3 rounded-3">
                 <img
-                  src="./images/services/air-conditioner-svgrepo-com.svg"
+                  src={acIcon}
                   alt
                 />
                 <p className="pt-3">Harmonic</p>
               </div>
               <div className=" card col-10 col-sm-3 ServicesIcons-card align-items-center p-3 rounded-3">
                 <img
-                  src="./images/services/television-screen-svgrepo-com.svg"
+                  src={tvIcon}
                   alt
                 />
                 <p className="pt-3">Big Screen Tv</p>
               </div>
               <div className=" card col-10 col-sm-3 ServicesIcons-card align-items-center p-3 rounded-3">
-                <img src="./images/services/wifi-svgrepo-com.svg" alt />
+                <img src={wifiIcon} alt />
                 <p className="pt-3">Wifi Free</p>
               </div>
               <div className=" card col-10 col-sm-3 ServicesIcons-card align-items-center p-3 rounded-3">
-                <img src="./images/services/key-square-2-svgrepo-com.svg" alt />
+                <img src={keyIcon} alt />
                 <p className="pt-3">Door Key</p>
               </div>
             </div>
             <div className="row align-items-center justify-content-center">
               <div className=" card col-10 col-sm-3 ServicesIcons-card align-items-center p-3 rounded-3">
                 <img
-                  src="./images/services/coffee-machine-svgrepo-com.svg"
+                  src={coffeeMachineIcon}
                   alt
                 />
                 <p className="pt-3">Cofee Maker</p>
               </div>
               <div className=" card col-10 col-sm-3 ServicesIcons-card align-items-center p-3 rounded-3">
-                <img src="./images/services/tissue-svgrepo-com.svg" alt />
+                <img src={tissueBoxIcon} alt />
                 <p className="pt-3">Tissue Box</p>
               </div>
               <div className=" card col-10 col-sm-3 ServicesIcons-card align-items-center p-3 rounded-3">
                 <img
-                  src="./images/services/hair-dryer-dryer-svgrepo-com.svg"
+                  src={hairDryerIcon}
                   alt
                 />
                 <p className="pt-3">Hairdryer</p>
               </div>
               <div className=" card col-10 col-sm-3 ServicesIcons-card align-items-center p-3 rounded-3">
                 <img
-                  src="./images/services/square-parking-svgrepo-com.svg"
+                  src={squareParkingIcon}
                   alt
                 />
                 <p className="pt-3">Free Parking</p>
@@ -76,21 +91,21 @@ const Services = () => {
               <div className="carousel-inner">
                 <div className="carousel-item active">
                   <img
-                    src="./images/services/services-04.jpg"
+                    src={serviceImg4}
                     className="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="./images/services/services-05.jpg"
+                    src={serviceImg5}
                     className="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="./images/services/services-06.jpg"
+                    src={serviceImg6}
                     className="d-block w-100"
                     alt="..."
                   />
@@ -125,7 +140,7 @@ const Services = () => {
           <div className="right col-12 col-sm-5 p-3 pt-5">
             <div className="upper row align-items-center pb-4">
               <img
-                src="./images/services/crossed-knife-and-fork-svgrepo-com.svg"
+                src={crossKniefImg}
                 alt
               />
               <h3 className="col-10 m-0">TOP RESTAURANTS</h3>
@@ -152,21 +167,21 @@ const Services = () => {
               <div className="carousel-inner">
                 <div className="carousel-item active">
                   <img
-                    src="./images/services/services-04.jpg"
+                    src={serviceImg4}
                     className="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="./images/services/services-05.jpg"
+                    src={serviceImg5}
                     className="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="./images/services/services-06.jpg"
+                    src={serviceImg6}
                     className="d-block w-100"
                     alt="..."
                   />
@@ -201,7 +216,7 @@ const Services = () => {
           <div className="right col-12 col-sm-5 p-3 pt-5">
             <div className="upper row align-items-center pb-4">
               <img
-                src="./images/services/crossed-knife-and-fork-svgrepo-com.svg"
+                src={crossKniefImg}
                 alt
               />
               <h3 className="col-10 m-0">TOP RESTAURANTS</h3>
@@ -228,21 +243,21 @@ const Services = () => {
               <div className="carousel-inner">
                 <div className="carousel-item active">
                   <img
-                    src="./images/services/services-04.jpg"
+                    src={serviceImg4}
                     className="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="./images/services/services-05.jpg"
+                    src={serviceImg5}
                     className="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="./images/services/services-06.jpg"
+                    src={serviceImg6}
                     className="d-block w-100"
                     alt="..."
                   />
@@ -277,7 +292,7 @@ const Services = () => {
           <div className="right col-12 col-sm-5 p-3 pt-5">
             <div className="upper row align-items-center pb-4">
               <img
-                src="./images/services/crossed-knife-and-fork-svgrepo-com.svg"
+                src={crossKniefImg}
                 alt
               />
               <h3 className="col-10 m-0">TOP RESTAURANTS</h3>
@@ -301,24 +316,24 @@ const Services = () => {
               className="carousel slide"
               data-bs-ride="carousel"
             >
-              <div className="carousel-inner">
+                <div className="carousel-inner">
                 <div className="carousel-item active">
                   <img
-                    src="./images/services/services-04.jpg"
+                    src={serviceImg4}
                     className="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="./images/services/services-05.jpg"
+                    src={serviceImg5}
                     className="d-block w-100"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="./images/services/services-06.jpg"
+                    src={serviceImg6}
                     className="d-block w-100"
                     alt="..."
                   />
@@ -353,7 +368,7 @@ const Services = () => {
           <div className="right col-12 col-sm-5 p-3 pt-5">
             <div className="upper row align-items-center pb-4">
               <img
-                src="./images/services/crossed-knife-and-fork-svgrepo-com.svg"
+                src={crossKniefImg}
                 alt
               />
               <h3 className="col-10 m-0">TOP RESTAURANTS</h3>

@@ -12,7 +12,7 @@ const Rooms = () => {
         <div className="room-banner-availability position-absolute bg-white border rounded-4 col-lg-7 col-11 justify-content-center align-items-center d-flex p-4 h-auto">
           <div className="row d-flex align-items-center justify-content-center">
             <div className="row flex-wrap">
-              <div className="check-in d-flex col-lg-4 col-sm-12 align-items-center ps-0 mb-lg-0 mb-3">
+              <div className="check-in d-flex col-lg-4  align-items-center ps-0 mb-lg-0 mb-3">
                 <i className="bi bi-calendar-date position-absolute z-2 ps-3" />
                 <input
                   type="text"
@@ -21,7 +21,7 @@ const Rooms = () => {
                   id="CheckIn"
                 />
               </div>
-              <div className="check-in d-flex col-lg-4 col-sm-12 align-items-center ps-0 mb-lg-0 mb-3">
+              <div className="check-in d-flex col-lg-4  align-items-center ps-0 mb-lg-0 mb-3">
                 <i className="bi bi-calendar-date position-absolute z-2 ms-3 " />
                 <input
                   type="text"
@@ -30,7 +30,7 @@ const Rooms = () => {
                   id="CheckOut"
                 />
               </div>
-              <div className=" mcounter adultCount d-flex col-lg-4 col-sm-12  align-items-center justify-content-evenly  rounded-4 ps-0 pe-0 pt-3 pb-3 mb-lg-0 mb-3">
+              <div className=" mcounter adultCount d-flex col-lg-4   align-items-center justify-content-evenly  rounded-4 ps-0 pe-0 pt-3 pb-3 mb-lg-0 mb-3">
                 <p>Adults</p>
                 <div className="decrement">
                   <i className="fa fa-minus AdultMinus" />
@@ -44,7 +44,7 @@ const Rooms = () => {
               </div>
             </div>
             <div className="row pt-lg-4 pt-0 flex-wrap column-gap-2">
-              <div className="mcounter childCount d-flex col-lg-4 col-sm-12  align-items-center justify-content-evenly rounded-4 ps-0 pe-0 pt-3 pb-3 mb-lg-0 mb-3">
+              <div className="mcounter childCount d-flex col-lg-4   align-items-center justify-content-evenly rounded-4 ps-0 pe-0 pt-3 pb-3 mb-lg-0 mb-3">
                 <p>Children</p>
                 <div className="decrement">
                   <i className="fa fa-minus ChildMinus" />
@@ -56,7 +56,7 @@ const Rooms = () => {
                   <i className="fa fa-plus ChildPlus" />
                 </div>
               </div>
-              <div className="mcounter bedCount d-flex col-lg-4 col-sm-12  align-items-center justify-content-evenly rounded-4 ps-0 pe-0 pt-3 pb-3 mb-lg-0 mb-3">
+              <div className="mcounter bedCount d-flex col-lg-4   align-items-center justify-content-evenly rounded-4 ps-0 pe-0 pt-3 pb-3 mb-lg-0 mb-3">
                 <p>Beds</p>
                 <div className="decrement">
                   <i className="fa fa-minus BedMinus" />
@@ -75,16 +75,16 @@ const Rooms = () => {
       <div className="roomListing container overflow-hidden">
         <h1 className="text-center">DISCOVER OUR ROOMS</h1>
         <div className="roomsList row justify-content-center">
-          <div className="card overflow-hidden p-0 mt-5 mb-5 rounded-4  col-11 ">
+          <div className="card overflow-hidden p-0 mt-5 mb-5 rounded-4  col-lg-12 col-11 ">
             <div className="row">
-              <div className="roomImage col-12 col-lg-6 col-sm-12 overflow-hidden p-0">
+              <div className="roomImage col-12 col-lg-6  overflow-hidden p-0">
                 <img
                   src={roomImg4}
                   alt
                   className="img-fluid"
                 />
               </div>
-              <div className="roomInfo col-12 col-lg-6 col-sm-12 p-5">
+              <div className="roomInfo col-12 col-lg-6  p-5">
                 <div className="upper row pe-5 border-bottom border-2 pb-5">
                   <div className="right col-lg-9">
                     <h1 className="pb-4">Vip Room</h1>
@@ -105,7 +105,7 @@ const Rooms = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="left col-lg-3 col-sm-12  rounded-1 text-center price p-2">
+                  <div className="left col-lg-3   rounded-1 text-center price p-2">
                     <h3 className="p-0 m-0 fs-5 fw-bold">$300.00</h3>
                     <p className="p-0 m-0 fs-6">Per night</p>
                   </div>
@@ -125,14 +125,14 @@ const Rooms = () => {
           </div>
           <div className="card overflow-hidden p-0 mt-5 mb-5 rounded-4 col-lg-12 col-11 ">
             <div className="row">
-              <div className="roomImage col-lg-6 col-sm-12 overflow-hidden p-0">
+              <div className="roomImage col-lg-6  overflow-hidden p-0">
                 <img
                   src={roomImg2}
                   alt
                   className="img-fluid"
                 />
               </div>
-              <div className="roomInfo col-lg-6 col-sm-12 p-5">
+              <div className="roomInfo col-lg-6  p-5">
                 <div className="upper row pe-5 border-bottom border-2 pb-5">
                   <div className="right col-lg-9">
                     <h1 className="pb-4">Love Room</h1>
@@ -153,7 +153,7 @@ const Rooms = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="left col-lg-3 col-sm-12  rounded-1 text-center price p-2">
+                  <div className="left col-lg-3   rounded-1 text-center price p-2">
                     <h3 className="p-0 m-0 fs-5 fw-bold">$300.00</h3>
                     <p className="p-0 m-0 fs-6">Per night</p>
                   </div>
@@ -173,14 +173,14 @@ const Rooms = () => {
           </div>
           <div className="card overflow-hidden p-0 mt-5 mb-5 rounded-4 col-lg-12 col-11 ">
             <div className="row">
-              <div className="roomImage col-lg-6 col-sm-12 overflow-hidden p-0">
+              <div className="roomImage col-lg-6  overflow-hidden p-0">
                 <img
                   src={roomImg3}
                   alt
                   className="img-fluid"
                 />
               </div>
-              <div className="roomInfo col-lg-6 col-sm-12 p-5">
+              <div className="roomInfo col-lg-6  p-5">
                 <div className="upper row pe-5 border-bottom border-2 pb-5">
                   <div className="right col-lg-9">
                     <h1 className="pb-4">Asia Room</h1>
@@ -201,7 +201,7 @@ const Rooms = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="left col-lg-3 col-sm-12  rounded-1 text-center price p-2">
+                  <div className="left col-lg-3   rounded-1 text-center price p-2">
                     <h3 className="p-0 m-0 fs-5 fw-bold">$300.00</h3>
                     <p className="p-0 m-0 fs-6">Per night</p>
                   </div>
@@ -221,14 +221,14 @@ const Rooms = () => {
           </div>
           <div className="card overflow-hidden p-0 mt-5 mb-5 rounded-4 col-lg-12 col-11 ">
             <div className="row">
-              <div className="roomImage col-lg-6 col-sm-12 overflow-hidden p-0">
+              <div className="roomImage col-lg-6  overflow-hidden p-0">
                 <img
                   src={roomImg1}
                   alt
                   className="img-fluid"
                 />
               </div>
-              <div className="roomInfo col-lg-6 col-sm-12 p-5">
+              <div className="roomInfo col-lg-6  p-5">
                 <div className="upper row pe-5 border-bottom border-2 pb-5">
                   <div className="right col-lg-9">
                     <h1 className="pb-4">Vintage Room</h1>
@@ -249,7 +249,7 @@ const Rooms = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="left col-lg-3 col-sm-12  rounded-1 text-center price p-2">
+                  <div className="left col-lg-3   rounded-1 text-center price p-2">
                     <h3 className="p-0 m-0 fs-5 fw-bold">$300.00</h3>
                     <p className="p-0 m-0 fs-6">Per night</p>
                   </div>

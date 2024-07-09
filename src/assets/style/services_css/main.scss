@@ -2,10 +2,6 @@ $primaryColor: #2596be;
 $bannerH1Color: white;
 $secondaryColor: #000000;
 
-body {
-    font-family: 'Barlow', sans-serif;
-    background-color: #ffffff;
-}
 
 .custom-btn {
     background-color: #e8e8e8;
@@ -109,8 +105,12 @@ body {
 .container-fluid {
     padding: 0;
 }
-.banner{
-    background-image: url('../../../images/services/header-banner-service.jpg');
+.services{
+    top: 20px !important;
+    position: relative;
+}
+.service-banner{
+    background-image: url('../../images/services/header-banner-service.jpg');
     height: 40vh;
     background-size: cover;
     background-position: center;
@@ -130,6 +130,7 @@ body {
     background-color: #F9F9F9;
     top:0px;
     z-index: 0;
+    margin-top: 0px;
     &:hover{
         top: -10px;
         transition: all 0.4s ease-in-out;
@@ -177,15 +178,4 @@ body {
     textarea{
         resize: none;
     }
-}
-
-footer {
-    padding: 80px 0;
-    background-color: #063c43;
-}
-
-footer button {
-    background-color: #1e83a8;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
 }

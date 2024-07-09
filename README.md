@@ -39,7 +39,7 @@ This project aims to create a comprehensive hotel booking platform that allows u
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/username/hotel-booking-website.git
+    git clone https://github.com/username/hotel-booking-react.git
     cd hotel-booking-website
     ```
 
@@ -65,7 +65,7 @@ This project aims to create a comprehensive hotel booking platform that allows u
     npm run dev
     ```
 
-    The application will be available at `http://localhost:3000`.
+    The application will be available at `http://localhost:5173`.
 
 ## Usage
 
@@ -108,6 +108,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-If you have any questions or suggestions, feel free to open an issue or contact us at [email@example.com](mailto:email@example.com).
+If you have any questions or suggestions, feel free to open an issue or contact us at [email@example.com](mailto:hibbanrahmanhyt@gmail.com).
 
 Happy coding!
