@@ -1,9 +1,9 @@
 import '../assets/style/blog_css/style.css';
+import blogImg1 from '../assets/images/blog/blog-1.jpg';
 const Blog = () => {
   return (
-    <div>
-      &lt;&gt;
-      <header className="cotainer-fluid ">
+    <div className='blog'>
+      <header className="container-fluid ">
         <h1 className="about m-0 ">
           <p>BLOG</p>
         </h1>
@@ -33,7 +33,7 @@ const Blog = () => {
             </div>
             <div className="my-4">
               <img
-                src="./images/blog/blog-1.jpg"
+                src={blogImg1}
                 alt
                 className="rounded img-fluid mb-3"
               />
@@ -58,7 +58,7 @@ const Blog = () => {
             </div>
             <div className="my-4">
               <img
-                src="./images/blog/blog-1.jpg"
+                src={blogImg1}
                 alt
                 className="rounded img-fluid mb-3"
               />
@@ -83,7 +83,7 @@ const Blog = () => {
             </div>
             <div className="my-4">
               <img
-                src="./images/blog/blog-1.jpg"
+                src={blogImg1}
                 alt
                 className="rounded img-fluid mb-3"
               />
@@ -108,7 +108,7 @@ const Blog = () => {
             </div>
             <div className="my-4">
               <img
-                src="./images/blog/blog-1.jpg"
+                src={blogImg1}
                 alt
                 className="rounded img-fluid mb-3"
               />
@@ -133,7 +133,7 @@ const Blog = () => {
             </div>
             <div className="my-4">
               <img
-                src="./images/blog/blog-1.jpg"
+                src={blogImg1}
                 alt
                 className="rounded img-fluid mb-3"
               />
@@ -158,7 +158,7 @@ const Blog = () => {
             </div>
             <div className="my-4">
               <img
-                src="./images/blog/blog-1.jpg"
+                src={blogImg1}
                 alt
                 className="rounded img-fluid mb-3"
               />
