@@ -1,5 +1,7 @@
 # Hotel Booking Website
 
+This repository contains the code for a comprehensive hotel booking web application. The platform allows users to search for hotels, view detailed information, check room availability, and make reservations securely. It also includes user authentication, a personalized dashboard for managing bookings, and an admin panel for hotel management.
+
 Welcome to the official repository for the Hotel Booking Website project!
 
 ## Overview
