@@ -1,0 +1,337 @@
+.main {
+    height: 100vh !important;
+}
+
+.nav-item a:hover {
+    background-color: #2595be1a;
+}
+
+.sidebar {
+    height: 100vh !important;
+    box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+        0 100px 80px rgba(0, 0, 0, 0.12);
+
+    h5 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    .profileImg {
+        height: 70px;
+        width: 70px;
+        border-radius: 50% !important;
+
+        img {
+            height: 80px;
+            width: 80px;
+        }
+    }
+}
+.contents {
+    .upperNav {
+        border-bottom: 0.2px solid rgba(97, 20, 231, 0.34);
+
+        .left {
+            img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .notification {
+            background-color: #0a465c1a;
+            height: 40px;
+            width: 40px;
+
+            i {
+                color: white;
+            }
+
+            div {
+                border-radius: 50%;
+                height: 20px;
+                width: 20px;
+                box-sizing: border-box;
+
+                p {
+                    font-size: 12px;
+                }
+
+                margin-top: -40px;
+                margin-right: -20px;
+            }
+        }
+    }
+
+    .profileImg {
+        height: 50px;
+        width: 50px;
+        border-radius: 50% !important;
+        cursor: pointer;
+        img {
+            height: 80px;
+            width: 80px;
+        }
+    }
+    .profileToolPit{
+        right: 40px;
+        top: 95px;
+        .card{
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);  
+            li:hover{
+                background-color: #e0dede;
+            }
+        }
+    }
+    .breadcrumb {
+        background-color: #0a465c1a;
+    }
+
+    select:focus{
+        border-color: rgb(215, 213, 213);
+        box-shadow: 0 0 0 0 rgba(13,110,253,.25) !important;
+    }
+}
+
+.bookingCard{
+    margin-top: -60px !important;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    .bookingItems{
+        .profile{
+            img{
+                width: 60px;
+                height: 60px;
+            }
+        }
+        button{
+            font-size: 14px;
+        }
+    }
+    
+}
+.addListingMain{
+    margin-top: -90px !important;
+    .card{
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        input:focus{
+            outline: none;
+        }
+        textarea{
+           resize: none;
+        }
+        textarea:focus{
+            box-shadow: none;
+            border-color: rgb(228, 228, 228);
+        }
+        iframe{
+            height: 300px !important;
+        }
+    }
+    .ImageGallery{
+        .card{
+            height: 25vh !important;
+            // img{
+                
+            // }
+        }
+        .uploadFile{
+            input[type="file"] {
+                position: relative;
+                background: transparent;
+                border: 0px !important;
+              }
+              
+              input[type="file"]::file-selector-button {
+                width: 100% !important;
+                height: 100% !important;
+                color: transparent;
+              }
+              
+              /* Faked label styles and icon */
+              input[type="file"]::before {
+                position: absolute;
+                pointer-events: none;
+                top: 10px;
+                left: 16px;
+                height: 150px;
+                width: 150px;
+                content: "";
+                // background-image: url("../images/upload-icon.png");
+                background-size: cover;
+                background-position:center;
+              }
+              
+              input[type="file"]::after {
+                position: absolute;
+                pointer-events: none;
+                top: 11px;
+                left: 40px;
+                color: #0964b0;
+                content: '';
+              }
+              
+              /* ------- From Step 1 ------- */
+              
+              /* file upload button */
+              input[type="file"]::file-selector-button {
+                border-radius: 10px;
+                padding: 0 16px;
+                height: 40px;
+                cursor: pointer;
+                background-color: white;
+                border: 1px solid rgba(0, 0, 0, 0.16);
+                box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+                margin-right: 16px;
+                transition: background-color 200ms;
+              }
+              
+              /* file upload button hover state */
+              input[type="file"]::file-selector-button:hover {
+                background-color: #f3f4f6;
+              }
+              
+              /* file upload button active state */
+              input[type="file"]::file-selector-button:active {
+                background-color: #e5e7eb;
+              }
+              
+        }
+    }
+}
+
+.personalData{
+    margin-top: -60px !important;
+    .card{
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        input:focus{
+            outline: none;
+        }
+        textarea{
+           resize: none;
+        }
+        textarea:focus{
+            box-shadow: none;
+            border-color: rgb(228, 228, 228);
+        }
+        iframe{
+            height: 300px !important;
+        }
+    }
+    img{
+        width: 150px;
+        height: 150px;
+    }
+    input:focus{
+        outline: none;
+    }
+    input::placeholder{
+        color: black;
+    }
+    .uploadFile{
+        input[type="file"] {
+            position: relative;
+          }
+          
+          input[type="file"]::file-selector-button {
+            width: 136px;
+            color: transparent;
+          }
+          
+          /* Faked label styles and icon */
+          input[type="file"]::before {
+            position: absolute;
+            pointer-events: none;
+            top: 10px;
+            left: 16px;
+            height: 20px;
+            width: 20px;
+            content: "";
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+          }
+          
+          input[type="file"]::after {
+            position: absolute;
+            pointer-events: none;
+            top: 11px;
+            left: 40px;
+            color: #0964b0;
+            content: "Upload File";
+          }
+          
+          /* ------- From Step 1 ------- */
+          
+          /* file upload button */
+          input[type="file"]::file-selector-button {
+            border-radius: 4px;
+            padding: 0 16px;
+            height: 40px;
+            cursor: pointer;
+            background-color: white;
+            border: 1px solid rgba(0, 0, 0, 0.16);
+            box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+            margin-right: 16px;
+            transition: background-color 200ms;
+          }
+          
+          /* file upload button hover state */
+          input[type="file"]::file-selector-button:hover {
+            background-color: #f3f4f6;
+          }
+          
+          /* file upload button active state */
+          input[type="file"]::file-selector-button:active {
+            background-color: #e5e7eb;
+          }
+          
+    }
+}
+
+
+.profileInfoCard{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin-top: -60px !important;
+}
+
+.walletContent{
+    margin-top: -60px !important;
+    .card{
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        i{
+            font-size: 60px !important;
+        }
+    }
+}
+
+.HotelListingMainContent{
+    margin-top: -60px !important;
+    .card{
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    }
+    .ListingUserProfile{
+        width: 50px;
+        height: 50px;
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+
+    }
+
+}
+
+.mainReviewsList{
+    margin-top: -60px !important;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    .reviewsItem{
+        img{
+            height: 80px;
+            width: 80px;
+        }
+    }
+}
