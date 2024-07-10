@@ -276,10 +276,14 @@ body {
     }
 
     .activeCst {
-        background-color: rgba(232, 232, 232, 0.381);
+        background-color: rgba(232, 232, 232, 0.381) !important;
         transition: all 0.5s ease-in-out;
     }
 
+    .card{
+        margin-top: 0px;
+        background: none;
+    }
     .card:hover {
         background-color: rgba(232, 232, 232, 0.381);
         cursor: pointer;
@@ -356,5 +360,18 @@ footer button {
     .overflow-y-auto {
         border: 1px solid #808080;
         max-height: 512px;
+    }
+    .Beach{
+        .lower{
+            height: 300px;
+        }
+    }
+}
+
+@media (max-width:500px){
+    .Beach{
+        .lower{
+            height: 300px;
+        }
     }
 }

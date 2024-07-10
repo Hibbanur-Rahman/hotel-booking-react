@@ -74,18 +74,18 @@ const Home = () => {
   };
 
   return (
-    <div classname="container-fluid">
+    <div className="container-fluid p-0 m-0 bg-white">
       {/*================= Banner Section Start ==================*/}
       <div className="homeSection container p-0 rounded-4">
         <div className="row h-auto p-0 m-0">
-          <div className="col-6 HomeBannerLeft p-5">
+          <div className="col-lg-6  HomeBannerLeft p-md-5 p-3">
             <p className>Welcome home</p>
-            <h1 className="w-75">Our world is your playground.</h1>
-            <p className="w-75 mt-4">
+            <h1 className="w-md-75 w-100">Our world is your playground.</h1>
+            <p className="w-md-75 w-100 mt-4">
               Make yourself at home in our very sophisticated guest rooms.
             </p>
           </div>
-          <div className="col-6" />
+          <div className="col-6 d-lg-flex d-none" />
         </div>
         <div className="HomeBannerDate row ms-0 col-8 position-relative rounded-end-5 rounded-bottom-0 overflow-hidden">
           <div className="col-3 border-end ps-5 pe-0 mt-4 mb-4">
@@ -141,25 +141,25 @@ const Home = () => {
         </div>
       </div>
       {/*================= count Section Start ==================*/}
-      <div className="container p-5 mt-5">
-        <div className="row m-0 p-5 mt-5">
-          <div className="counter card col-4 text-center justify-content-center">
+      <div className="container p-md-5 pt-5 mt-5">
+        <div className="row m-0 p-md-5 mt-5">
+          <div className="counter card col-md-4  text-center justify-content-center mb-md-0 mb-5">
             <h1>20+</h1>
             <p>VARIOUS SERVICES</p>
           </div>
-          <div className="counter card col-4 text-center justify-content-center">
+          <div className="counter card col-md-4 text-center justify-content-center">
             <h1>150+</h1>
             <p>DIFFERENT ROOMS</p>
           </div>
-          <div className="counter card col-4 text-center justify-content-center">
+          <div className="counter card col-md-4 text-center justify-content-center">
             <h1>15+</h1>
             <p>EXPERIENCE</p>
           </div>
         </div>
       </div>
       {/*================= Beach Section Start ==================*/}
-      <div className="container Beach d-flex flex-column align-items-center justify-content-center p-5 rounded-4">
-        <div className="upper row text-center col-7 align-items-center justify-content-center p-5 mt-5">
+      <div className="container Beach d-flex flex-column align-items-center justify-content-center p-md-5 p-2 rounded-4">
+        <div className="upper row text-center col-md-7 align-items-center justify-content-center p-md-5 mt-5">
           <h1>Beach Hotel More than a stay</h1>
           <p>
             we have a lot of effort to bring more quality time to you and the
@@ -168,7 +168,7 @@ const Home = () => {
           </p>
           <img src={signature} alt />
         </div>
-        <div className="position-relative col-9 lower d-flex align-items-center justify-content-center rounded-4 mt-5">
+        <div className="position-relative col-md-9 col-12 lower d-flex align-items-center justify-content-center rounded-4 mt-5 ">
           <i className="bi bi-play-circle-fill" />
         </div>
       </div>
@@ -229,16 +229,16 @@ const Home = () => {
       <div className="services container pt-5 mt-5">
         <div className="serviceHead row justify-content-between pt-5">
           <h1 className="w-auto fs-2">OUR SERVICE</h1>
-          <div className="col-2 d-flex align-items-center">
+          <div className="col-2 d-md-flex d-none align-items-center">
             <p className="w-auto p-0 m-0 fs-5">See more</p>
             <i className="bi bi-arrow-right" />
           </div>
         </div>
         <div className="row pt-5">
           <div
-            className={` ${
+            className={`card  ${
               isServiceGalleryShow ? "activeCst" : ""
-            } card col-3 d-flex flex-row justify-content-around p-4 border-0`}
+            } col-md-3 d-flex flex-row justify-content-around p-4 border-0`}
             id="spaTab"
             onClick={handleServiceGalleryShow}
           >
@@ -251,9 +251,9 @@ const Home = () => {
             </div>
           </div>
           <div
-            className={` ${
+            className={` card ${
               isServiceRestaurantsShow ? "activeCst" : ""
-            } card col-3 d-flex flex-row justify-content-around p-4 border-0`}
+            } col-md-3 d-flex flex-row justify-content-around p-4 border-0`}
             id="restaurantTab"
             onClick={handleServiceRestaurantsShow}
           >
@@ -266,9 +266,9 @@ const Home = () => {
             </div>
           </div>
           <div
-            className={` ${
+            className={`card ${
               isServiceSuitesShow ? "activeCst" : ""
-            } card col-3 d-flex flex-row justify-content-around p-4 border-0`}
+            }  col-md-3 d-flex flex-row justify-content-around p-4 border-0`}
             id="suitesTab"
             onClick={handleServiceSuiteShow}
           >
@@ -281,9 +281,9 @@ const Home = () => {
             </div>
           </div>
           <div
-            className={` ${
+            className={`card ${
               isServiceSwimmingShow ? "activeCst" : ""
-            } card col-3 d-flex flex-row justify-content-around p-4 border-0`}
+            }  col-md-3 d-flex flex-row justify-content-around p-4 border-0`}
             id="swimmingTab"
             onClick={handleServiceSwimmingShow}
           >
@@ -410,135 +410,40 @@ const Home = () => {
       <div className="testimonial container">
         <h1>OUR GUESTS LOVE US</h1>
         <div className="slider position-relative pt-5 mb-5">
-          {/* <div
-            className=" slide-testimonials owl-carousel owl-theme owl-loaded owl-drag"
-            id="testimonial_slider"
-          >
-            <div className="owl-stage-outer">
-              <div
-                className="pb-5 owl-stage pt-5"
-                style={{
-                  transform: "translate3d(-2166px, 0px, 0px)",
-                  transition: "all 0.5s ease 0s",
-                  width: 4334,
-                }}
-              >
-                <div
-                  className="card owl-item cloned border border-0 p-4 pb-2 pt-2"
-                  style={{ width: "403.333px" }}
-                >
-                  <div className="item">
-                    <div className="client_info">
-                      <p className="evaluate">
-                        "I will be pet i will be pet and then i will hiss sit in
-                        box get scared by doggo also cucumerro yet the best
-                        thing in the call universe is a cardboard box."{" "}
-                      </p>
-                      <div className="row p-0 m-0 d-flex justify-content-between">
-                        <div className="info d-flex  col-7">
-                          <div className="client">
-                            <img
-                              decoding="async"
-                              src={testimonialImg1}
-                              alt="Ralph Edwards"
-                            />
-                          </div>
-                          <div className="name-job ps-2">
-                            <p className="name second_font m-0 p-0">
-                              Ralph Edwards{" "}
-                            </p>
-                            <p className="job m-0 p-0">American </p>
-                          </div>
-                        </div>
-                        
-                        <div className="icon-quote col-3">
-                          <i className="bi bi-quote" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="card owl-item cloned border border-0 p-4 pb-2 pt-2"
-                  style={{ width: "403.333px" }}
-                >
-                  <div className="item">
-                    <div className="client_info">
-                      <p className="evaluate">
-                        "I will be pet i will be pet and then i will hiss sit in
-                        box get scared by doggo also cucumerro yet the best
-                        thing in the call universe is a cardboard box."{" "}
-                      </p>
-                      <div className="row p-0 m-0 d-flex justify-content-between">
-                        <div className="info d-flex  col-7">
-                          <div className="client">
-                            <img
-                              decoding="async"
-                              src={testimonialImg1}
-                              alt="Ralph Edwards"
-                            />
-                          </div>
-                          <div className="name-job ps-2">
-                            <p className="name second_font m-0 p-0">
-                              Ralph Edwards{" "}
-                            </p>
-                            <p className="job m-0 p-0">American </p>
-                          </div>
-                        </div>
-                       
-                        <div className="icon-quote col-3">
-                          <i className="bi bi-quote" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="owl-nav disabled">
-              <button type="button" role="presentation" className="owl-prev">
-                <span aria-label="Previous">‹</span>
-              </button>
-              <button type="button" role="presentation" className="owl-next">
-                <span aria-label="Next">›</span>
-              </button>
-            </div>
-            <div className="owl-dots">
-              <button role="button" className="owl-dot active" title="Dots">
-                <span />
-              </button>
-              <button role="button" className="owl-dot" title="Dots">
-                <span />
-              </button>
-            </div>
-          </div> */}
           <Swiper
             slidesPerView={3}
             spaceBetween={30}
             loop={true}
             freeMode={true}
-            autoplay
-            pagination={{
-              clickable: true,
-            }}
-            modules={[FreeMode, Pagination,Autoplay]}
+            autoplay={{ delay: 3000 }}
+            pagination={{ clickable: true }}
+            modules={[FreeMode, Pagination, Autoplay]}
             className="mySwiper pb-5 ps-3 pe-3 pt-5"
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+            }}
           >
             <SwiperSlide>
-              {" "}
               <div
-                className="card  border border-0 p-4 pb-2 pt-2"
-                style={{marginTop:'0px' }}
+                className="card border border-0 p-4 pb-2 pt-2"
+                style={{ marginTop: "0px" }}
               >
                 <div className="item">
                   <div className="client_info">
                     <p className="evaluate">
                       "I will be pet i will be pet and then i will hiss sit in
                       box get scared by doggo also cucumerro yet the best thing
-                      in the call universe is a cardboard box."{" "}
+                      in the call universe is a cardboard box."
                     </p>
                     <div className="row p-0 m-0 d-flex justify-content-between">
-                      <div className="info d-flex  col-7">
+                      <div className="info d-flex col-7">
                         <div className="client">
                           <img
                             decoding="async"
@@ -548,48 +453,11 @@ const Home = () => {
                         </div>
                         <div className="name-job ps-2">
                           <p className="name second_font m-0 p-0">
-                            Ralph Edwards{" "}
+                            Ralph Edwards
                           </p>
-                          <p className="job m-0 p-0">American </p>
+                          <p className="job m-0 p-0">American</p>
                         </div>
                       </div>
-                      {/* end info */}
-                      <div className="icon-quote col-3">
-                        <i className="bi bi-quote" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="card  border border-0 p-4 pb-2 pt-2" 
-                style={{marginTop:'0px' }}
-                >
-                <div className="item">
-                  <div className="client_info">
-                    <p className="evaluate">
-                      "I will be pet i will be pet and then i will hiss sit in
-                      box get scared by doggo also cucumerro yet the best thing
-                      in the call universe is a cardboard box."{" "}
-                    </p>
-                    <div className="row p-0 m-0 d-flex justify-content-between">
-                      <div className="info d-flex  col-7">
-                        <div className="client">
-                          <img
-                            decoding="async"
-                            src={testimonialImg1}
-                            alt="Ralph Edwards"
-                          />
-                        </div>
-                        <div className="name-job ps-2">
-                          <p className="name second_font m-0 p-0">
-                            Ralph Edwards{" "}
-                          </p>
-                          <p className="job m-0 p-0">American </p>
-                        </div>
-                      </div>
-                      {/* end info */}
                       <div className="icon-quote col-3">
                         <i className="bi bi-quote" />
                       </div>
@@ -600,18 +468,18 @@ const Home = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div
-                className="card  border border-0 p-4 pb-2 pt-2"
-                style={{marginTop:'0px' }}
+                className="card border border-0 p-4 pb-2 pt-2"
+                style={{ marginTop: "0px" }}
               >
                 <div className="item">
                   <div className="client_info">
                     <p className="evaluate">
                       "I will be pet i will be pet and then i will hiss sit in
                       box get scared by doggo also cucumerro yet the best thing
-                      in the call universe is a cardboard box."{" "}
+                      in the call universe is a cardboard box."
                     </p>
                     <div className="row p-0 m-0 d-flex justify-content-between">
-                      <div className="info d-flex  col-7">
+                      <div className="info d-flex col-7">
                         <div className="client">
                           <img
                             decoding="async"
@@ -621,12 +489,11 @@ const Home = () => {
                         </div>
                         <div className="name-job ps-2">
                           <p className="name second_font m-0 p-0">
-                            Ralph Edwards{" "}
+                            Ralph Edwards
                           </p>
-                          <p className="job m-0 p-0">American </p>
+                          <p className="job m-0 p-0">American</p>
                         </div>
                       </div>
-                      {/* end info */}
                       <div className="icon-quote col-3">
                         <i className="bi bi-quote" />
                       </div>
@@ -636,18 +503,19 @@ const Home = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className="card  border border-0 p-4 pb-2 pt-2"
-                style={{marginTop:'0px' }}
-                >
+              <div
+                className="card border border-0 p-4 pb-2 pt-2"
+                style={{ marginTop: "0px" }}
+              >
                 <div className="item">
                   <div className="client_info">
                     <p className="evaluate">
                       "I will be pet i will be pet and then i will hiss sit in
                       box get scared by doggo also cucumerro yet the best thing
-                      in the call universe is a cardboard box."{" "}
+                      in the call universe is a cardboard box."
                     </p>
                     <div className="row p-0 m-0 d-flex justify-content-between">
-                      <div className="info d-flex  col-7">
+                      <div className="info d-flex col-7">
                         <div className="client">
                           <img
                             decoding="async"
@@ -657,12 +525,47 @@ const Home = () => {
                         </div>
                         <div className="name-job ps-2">
                           <p className="name second_font m-0 p-0">
-                            Ralph Edwards{" "}
+                            Ralph Edwards
                           </p>
-                          <p className="job m-0 p-0">American </p>
+                          <p className="job m-0 p-0">American</p>
                         </div>
                       </div>
-                      {/* end info */}
+                      <div className="icon-quote col-3">
+                        <i className="bi bi-quote" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div
+                className="card border border-0 p-4 pb-2 pt-2"
+                style={{ marginTop: "0px" }}
+              >
+                <div className="item">
+                  <div className="client_info">
+                    <p className="evaluate">
+                      "I will be pet i will be pet and then i will hiss sit in
+                      box get scared by doggo also cucumerro yet the best thing
+                      in the call universe is a cardboard box."
+                    </p>
+                    <div className="row p-0 m-0 d-flex justify-content-between">
+                      <div className="info d-flex col-7">
+                        <div className="client">
+                          <img
+                            decoding="async"
+                            src={testimonialImg1}
+                            alt="Ralph Edwards"
+                          />
+                        </div>
+                        <div className="name-job ps-2">
+                          <p className="name second_font m-0 p-0">
+                            Ralph Edwards
+                          </p>
+                          <p className="job m-0 p-0">American</p>
+                        </div>
+                      </div>
                       <div className="icon-quote col-3">
                         <i className="bi bi-quote" />
                       </div>
