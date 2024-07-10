@@ -1,8 +1,7 @@
 import '../assets/style/contact_css/styles.css'
 const Contact = () => {
   return (
-    <div>
-      &lt;&gt;
+    <div className='contact'>
       <div className=" d-flex justify-content-center   contact-header text-center align-items-center">
         <h1>Contact us</h1>
       </div>
