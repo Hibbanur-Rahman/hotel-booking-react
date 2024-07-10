@@ -37,6 +37,9 @@
     }
 }
 .contents{
+    height: 100vh !important;
+    overflow-y: scroll;
+    scrollbar-width: none;
     .upperNav{
         border-bottom: 0.2px solid rgba(97, 20, 231, 0.34);
         .left{

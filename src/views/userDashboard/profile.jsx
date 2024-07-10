@@ -1,4 +1,4 @@
-const MyProfile=()=>{
+const Profile=()=>{
     return(
       <div>
   &lt;&gt;
@@ -85,4 +85,4 @@ const MyProfile=()=>{
 
     )
 }
-export default MyProfile;
+export default Profile;

@@ -1,4 +1,4 @@
-const MyReviews = () => {
+const Reviews = () => {
   return (
     <div>
       &lt;&gt;
@@ -230,4 +230,4 @@ const MyReviews = () => {
   );
 };
 
-export default MyReviews;
+export default Reviews;
