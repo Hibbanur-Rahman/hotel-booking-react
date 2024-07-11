@@ -10,15 +10,20 @@ import awardsImg3 from '../assets/images/aboutUs/awards-03.png';
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+// import './styles.css';
+
 // import required modules
-import { FreeMode, Pagination, Autoplay } from "swiper/modules";
+import { Keyboard, Scrollbar, Navigation, Pagination, Autoplay } from 'swiper/modules';
+
 
 const AboutUs = () => {
   return (
-    <div className="aboutUS" style={{top:'40px',position:'relative'}}>
+    <div className="aboutUS" style={{ top: '40px', position: 'relative' }}>
       <header className="aboutUs-header container-fluid ">
         <h1 className="about m-0 ">
           <p>ABOUT US</p>
@@ -42,52 +47,49 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
-      <div className="container-fluid p-0">
-        <div className="slider mb-4 position-relative row m-0 p-0">
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
-            loop={true}
-            freeMode={true}
-            autoplay
-            pagination={{
-              clickable: true,
-            }}
-            modules={[FreeMode, Pagination, Autoplay]}
-            className="mySwiper"
-          >
-            <SwiperSlide>
-              <div className="slider-card m-3">
-                <div className="d-flex justify-content-center align-items-center mb-4">
-                  <img src={crousalImg1} alt />
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="slider-card m-3">
-                <div className="d-flex justify-content-center align-items-center mb-4">
-                  <img src={crousalImg2} alt />
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="slider-card m-3">
-                <div className="d-flex justify-content-center align-items-center mb-4">
-                  <img src={crousalImg3} alt />
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="slider-card m-3">
-                <div className="d-flex justify-content-center align-items-center mb-4">
-                  <img src={crousalImg3} alt />
-                </div>
-              </div>
-            </SwiperSlide>
-            
-          </Swiper>
-        </div>
-      </div>
+      <section className="container">
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          loop={true}
+          autoplay
+          pagination={{
+            clickable: true,
+          }}
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+          }}
+          modules={[Pagination, Autoplay]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <img src={crousalImg1} alt="crousalImg1" />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={crousalImg2} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={crousalImg3} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={crousalImg1} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src={crousalImg2} />
+          </SwiperSlide>
+        </Swiper>
+      </section>
       <section className="section-2 container ">
         <h1 className="text-center m-0 mb-5 ">
           <p>WHY CHOOSE US</p>
