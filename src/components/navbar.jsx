@@ -1,5 +1,7 @@
+import "../assets/style/aboutUs_css/style.css";
 import logo from "../assets/images/login/logo.png";
 import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <div>
@@ -141,7 +143,7 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            <div className="d-flex">
+            <div className="ms-3 m-lg-0 d-flex">
               <button
                 className="me-2 border-1 border-dark border-opacity-10 rounded bg-transparent px-2"
                 type="submit"

@@ -208,6 +208,6 @@ footer button {
 
 @media(max-width:995px) {
     .offcanvas {
-        flex-direction: column;
+        flex-direction: column !important;
     }
 }
