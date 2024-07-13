@@ -1,12 +1,31 @@
 import "../assets/style/login_css/style.css";
 import loginImg from "../assets/images/login/login.jpg";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
+import DOMAIN from "../../environmentVariables";
+import httpStatusCode from "../constants/httpStatusCode";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const [isLoginShow, setIsLoginShow] = useState(true);
   const [isRegisterShow, setIsRegisterShow] = useState(false);
-  const [isLoginPasswordShow,setIsLoginPasswordShow]=useState(false);
-  const [isRegisterPasswordShow,setIsRegisterPasswordShow]=useState(false);
-  const [isRegisterRepeatPasswordShow,setIsRegisterRepeatPasswordShow]=useState(false);
+  const [isLoginPasswordShow, setIsLoginPasswordShow] = useState(false);
+  const [isRegisterPasswordShow, setIsRegisterPasswordShow] = useState(false);
+  const [isLoginSubmiting, setIsLoginSubmiting] = useState(false);
+  const [isRegisterSubmiting, setIsRegisterSubmiting] = useState(false);
+  const [isRegisterRepeatPasswordShow, setIsRegisterRepeatPasswordShow] =
+    useState(false);
+  const [userLoginData, setUserLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  const [userRegisterData, setUserRegisterData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
+  });
 
   const handleLoginShow = () => {
     setIsLoginShow(true);
@@ -14,12 +33,70 @@ const Login = () => {
   };
   const handleRegisterShow = () => {
     setIsLoginShow(false);
-    setIsRegisterShow(true)
+    setIsRegisterShow(true);
+  };
+  const handleLoginPasswordShow = () => {
+    setIsLoginPasswordShow(!isLoginPasswordShow);
   };
 
-  const handleLoginPasswordShow=()=>{
-    setIsLoginPasswordShow(!isLoginPasswordShow);
-  }
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setIsLoginSubmiting(true);
+      const response = await axios.post(`${DOMAIN}/login`, userLoginData);
+      if (response.status == httpStatusCode.OK) {
+        setIsLoginSubmiting(false);
+        toast.success("Login Successfull");
+        localStorage.setItem("token", response.data.data.token);
+        setUserLoginData({
+          email: "",
+          password: "",
+        });
+        navigate("/user/dashboard");
+      }
+    } catch (error) {
+      setIsLoginSubmiting(false);
+      toast.error("Failed to login");
+    }
+  };
+
+  const handleChangeLoginInput = (e) => {
+    setUserLoginData({ ...userLoginData, [e.target.name]: e.target.value });
+  };
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (userRegisterData.password != userRegisterData.repeatPassword) {
+        toast.error("Password and Repeat Password are not same");
+        return;
+      }
+      setIsRegisterSubmiting(true);
+      const response = await axios.post(`${DOMAIN}/register`, userRegisterData);
+      if (response.status == httpStatusCode.CREATED) {
+        setIsRegisterSubmiting(false);
+        toast.success("Register Successfull");
+        setUserRegisterData({
+          username: "",
+          email: "",
+          password: "",
+          repeatPassword: "",
+        });
+        setIsRegisterShow(false);
+        setIsLoginShow(true);
+      }
+    } catch (error) {
+      setIsRegisterSubmiting(false);
+      toast.error("Failed to register");
+    }
+  };
+
+  const handleRegisterInputChange = (e) => {
+    setUserRegisterData({
+      ...userRegisterData,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <div className="container-fluid bg-light overflow-x-hidden">
       <section className="vh-100" style={{ paddingTop: "0px" }}>
@@ -43,18 +120,22 @@ const Login = () => {
                   >
                     <div className="pe-1 w-50 text-center login">
                       <div
-                        className={`nav-link btn-class loginAnchor  ${isLoginShow?'active':''}`}
+                        className={`nav-link btn-class loginAnchor  ${
+                          isLoginShow ? "active" : ""
+                        }`}
                         onClick={handleLoginShow}
-                        style={{cursor:'pointer'}}
+                        style={{ cursor: "pointer" }}
                       >
                         Login
                       </div>
                     </div>
                     <div className="pe-1 w-50 text-center login">
                       <div
-                        className={`nav-link btn-class registerAnchor ${isRegisterShow?'active':''}`}
+                        className={`nav-link btn-class registerAnchor ${
+                          isRegisterShow ? "active" : ""
+                        }`}
                         onClick={handleRegisterShow}
-                        style={{cursor:'pointer'}}
+                        style={{ cursor: "pointer" }}
                       >
                         Register
                       </div>
@@ -69,7 +150,7 @@ const Login = () => {
                         role="tabpanel"
                         aria-labelledby="tab-login"
                       >
-                        <form action="/login" method="post">
+                        <form method="post" onSubmit={handleChangeLoginInput}>
                           <div className="form-outline mb-4">
                             <input
                               type="email"
@@ -77,19 +158,30 @@ const Login = () => {
                               className="form-control"
                               name="email"
                               placeholder="Email"
+                              onChange={handleChangeLoginInput}
+                              value={userLoginData.email}
                             />
                             {/* <label className="form-label" htmlFor="loginName">
                               Email
                             </label> */}
                           </div>
                           <div className="form-outline mb-4 d-flex password align-items-center position-relative">
-                            <i className={`la  ${isLoginPasswordShow?'la-eye-slash':'la-eye'} w-auto position-absolute`} onClick={handleLoginPasswordShow} />
+                            <i
+                              className={`la  ${
+                                isLoginPasswordShow ? "la-eye-slash" : "la-eye"
+                              } w-auto position-absolute`}
+                              onClick={handleLoginPasswordShow}
+                            />
                             <input
-                              type={`${isLoginPasswordShow?'text':'password'}`}
+                              type={`${
+                                isLoginPasswordShow ? "text" : "password"
+                              }`}
                               id="loginPassword"
                               className="form-control"
                               name="password"
                               placeholder="Password"
+                              onChange={handleChangeLoginInput}
+                              value={userLoginData.password}
                             />
                             {/* <label
                               className="form-label"
@@ -121,12 +213,18 @@ const Login = () => {
                               <a href="#!">Forgot password?</a>
                             </div>
                           </div>
-                          <button
-                            type="submit"
-                            className="custom-btn w-100 mb-4"
-                          >
-                            Sign in
-                          </button>
+                          {isLoginSubmiting ? (
+                            <button className="custom-btn w-100 mb-4" disabled>
+                              submiting...
+                            </button>
+                          ) : (
+                            <button
+                              className="custom-btn w-100 mb-4"
+                              onClick={handleLoginSubmit}
+                            >
+                              Sign in
+                            </button>
+                          )}
                         </form>
                       </div>
                     ) : (
@@ -147,8 +245,10 @@ const Login = () => {
                               type="text"
                               id="registerName"
                               className="form-control"
-                              name="name"
+                              name="username"
                               placeholder="Name"
+                              onChange={handleRegisterInputChange}
+                              value={userRegisterData.username}
                             />
                             {/* <label
                               className="form-label"
@@ -164,6 +264,8 @@ const Login = () => {
                               className="form-control"
                               name="email"
                               placeholder="Email"
+                              onChange={handleRegisterInputChange}
+                              value={userRegisterData.email}
                             />
                             {/* <label
                               className="form-label"
@@ -173,13 +275,28 @@ const Login = () => {
                             </label> */}
                           </div>
                           <div className="form-outline mb-4 d-flex password align-items-center position-relative">
-                          <i className={`la  ${isRegisterPasswordShow?'la-eye-slash':'la-eye'} w-auto position-absolute`} onClick={()=>{setIsRegisterPasswordShow(!isRegisterPasswordShow)}} />
-                          <input
-                              type={`${isRegisterPasswordShow?'text':'password'}`}
+                            <i
+                              className={`la  ${
+                                isRegisterPasswordShow
+                                  ? "la-eye-slash"
+                                  : "la-eye"
+                              } w-auto position-absolute`}
+                              onClick={() => {
+                                setIsRegisterPasswordShow(
+                                  !isRegisterPasswordShow
+                                );
+                              }}
+                            />
+                            <input
+                              type={`${
+                                isRegisterPasswordShow ? "text" : "password"
+                              }`}
                               id="registerPassword"
                               className="form-control"
                               name="password"
                               placeholder="Password"
+                              onChange={handleRegisterInputChange}
+                              value={userRegisterData.password}
                             />
                             {/* <label
                               className="form-label"
@@ -189,13 +306,30 @@ const Login = () => {
                             </label> */}
                           </div>
                           <div className="form-outline mb-0 d-flex password align-items-center position-relative">
-                          <i className={`la  ${isRegisterRepeatPasswordShow?'la-eye-slash':'la-eye'} w-auto position-absolute`} onClick={()=>{setIsRegisterRepeatPasswordShow(!isRegisterRepeatPasswordShow)}} />
+                            <i
+                              className={`la  ${
+                                isRegisterRepeatPasswordShow
+                                  ? "la-eye-slash"
+                                  : "la-eye"
+                              } w-auto position-absolute`}
+                              onClick={() => {
+                                setIsRegisterRepeatPasswordShow(
+                                  !isRegisterRepeatPasswordShow
+                                );
+                              }}
+                            />
                             <input
-                              type={`${isRegisterRepeatPasswordShow?'text':'password'}`}
+                              type={`${
+                                isRegisterRepeatPasswordShow
+                                  ? "text"
+                                  : "password"
+                              }`}
                               id="registerRepeatPassword"
                               className="form-control"
                               name="repeatPassword"
                               placeholder="Repeat Password"
+                              onChange={handleRegisterInputChange}
+                              value={userRegisterData.repeatPassword}
                             />
                             {/* <label
                               className="form-label"
@@ -221,14 +355,19 @@ const Login = () => {
                               I have read and agree to the terms
                             </label>
                           </div>
-                          <button
-                            type="submit"
-                            className="custom-btn w-100 mb-3"
-                            onclick=" OnToast()"
-                            id="signUp"
-                          >
-                            Sign up
-                          </button>
+                          {isRegisterSubmiting ? (
+                            <button className="custom-btn w-100 mb-3" disabled>
+                              Submiting ...
+                            </button>
+                          ) : (
+                            <button
+                              type="submit"
+                              className="custom-btn w-100 mb-3"
+                              onClick={handleRegisterSubmit}
+                            >
+                              Sign up
+                            </button>
+                          )}
                         </form>
                       </div>
                     ) : (
