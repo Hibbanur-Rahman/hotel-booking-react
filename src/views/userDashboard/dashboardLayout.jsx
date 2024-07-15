@@ -6,6 +6,7 @@ import Booking from "./booking";
 import Profile from "./profile";
 import Reviews from "./reviews";
 import Wishlist from "./wishlist";
+import Setting from "./setting";
 import HeadingData from "../../components/headingData";
 import Navbar from "../../components/navbar";
 
@@ -27,6 +28,7 @@ const DashboardLayout = () => {
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/reviews" element={<Reviews />} />
           <Route exact path="/wishlist" element={<Wishlist />} />
+          <Route exact path="/setting" element={<Setting />} />
         </Routes>
       </div>
     </div>

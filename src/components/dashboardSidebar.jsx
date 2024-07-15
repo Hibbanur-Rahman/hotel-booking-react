@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 import profileImg from "../assets/images/userDashboard/userImg.jpg";
 
+
 const DashboardSidebar = () => {
+  const location=useLocation();
   return (
     <>
       <div
@@ -19,43 +21,43 @@ const DashboardSidebar = () => {
         </div>
         <hr />
         <ul className="nav nav-pills flex-column mb-auto">
-          <li className="dashBoard nav-item">
-            <Link to="/user/dashboard" className="nav-link text-dark">
+          <li className="dashBoard nav-item ">
+            <Link to="/user/dashboard" className={`nav-link  ${location.pathname==='/user/dashboard'?'active text-light':'text-dark'} `}>
               <i className="bi bi-speedometer2 me-2" />
               Dashboard
             </Link>
           </li>
           <li className="myBooking nav-item">
-            <Link to="/user/booking" className="nav-link text-dark">
+            <Link to="/user/booking"  className={`nav-link  ${location.pathname==='/user/booking'?'active text-light':'text-dark'} `}>
               <i className="bi bi-cart2 me-2" />
               My Booking
             </Link>
           </li>
           <li className="myProfile nav-item">
-            <Link to="/user/profile" className="nav-link text-dark">
+            <Link to="/user/profile"  className={`nav-link  ${location.pathname==='/user/profile'?'active text-light':'text-dark'} `}>
               <i className="bi bi-person me-2" />
               My Profile
             </Link>
           </li>
           <li className="myReviews nav-item">
-            <Link to="/user/reviews" className="nav-link text-dark">
+            <Link to="/user/reviews"  className={`nav-link  ${location.pathname==='/user/reviews'?'active text-light':'text-dark'} `}>
               <i className="bi bi-star-fill me-2" />
               My Reviews
             </Link>
           </li>
           <li className="wishlist nav-item">
-            <Link to="/user/wishlist" className="nav-link text-dark">
+            <Link to="/user/wishlist"  className={`nav-link  ${location.pathname==='/user/wishlist'?'active text-light':'text-dark'} `}>
               <i className="bi bi-suit-heart-fill me-2" />
               Wishlist
             </Link>
           </li>
           <li className="setting nav-item">
-            <Link to="/user/setting" className="nav-link text-dark">
+            <Link to="/user/setting"  className={`nav-link  ${location.pathname==='/user/setting'?'active text-light':'text-dark'} `}>
               <i className="bi bi-gear me-2" /> Settings
             </Link>
           </li>
           <li className="logout nav-item">
-            <Link to="/user/" className="nav-link text-dark">
+            <Link to="/user/"  className={`nav-link  ${location.pathname==='/user/'?'active text-light':'text-dark'} `}>
               <i className="bi bi-power me-2" /> Logout
             </Link>
           </li>
@@ -71,21 +73,21 @@ const DashboardSidebar = () => {
       ></i>
       <div className=" d-lg-none d-flex">
         <div
-          class="offcanvas offcanvas-start"
+          className="offcanvas offcanvas-start"
           tabindex="-1"
           id="offcanvasExample"
           aria-labelledby="offcanvasExampleLabel"
         >
-          <div class="offcanvas-header">
+          <div className="offcanvas-header">
             <button
               type="button"
-              class="btn-close text-reset"
+              className="btn-close text-reset"
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             ></button>
           </div>
-          <div class="offcanvas-body">
-            <div className="author row align-items-center text-dark text-decoration-none m-0">
+          <div className="offcanvas-body">
+            <div className="author row align-items-center  text-decoration-none m-0">
               <div className="profileImg rounded-5 overflow-hidden col-4 p-0 d-flex">
                 <img src={profileImg} alt  />
               </div>
@@ -97,42 +99,42 @@ const DashboardSidebar = () => {
             <hr />
             <ul className="nav nav-pills flex-column mb-auto">
               <li className="dashBoard nav-item">
-                <Link to="/user/dashboard" className="nav-link text-dark">
+                <Link to="/user/dashboard"  className={`nav-link  ${location.pathname==='/user/dashboard'?'active text-light':'text-dark'} `}>
                   <i className="bi bi-speedometer2 me-2" />
                   Dashboard
                 </Link>
               </li>
               <li className="myBooking nav-item">
-                <Link to="/user/booking" className="nav-link text-dark">
+                <Link to="/user/booking"  className={`nav-link  ${location.pathname==='/user/booking'?'active text-light':'text-dark'} `}>
                   <i className="bi bi-cart2 me-2" />
                   My Booking
                 </Link>
               </li>
               <li className="myProfile nav-item">
-                <Link to="/user/profile" className="nav-link text-dark">
+                <Link to="/user/profile"  className={`nav-link  ${location.pathname==='/user/profile'?'active text-light':'text-dark'} `}>
                   <i className="bi bi-person me-2" />
                   My Profile
                 </Link>
               </li>
               <li className="myReviews nav-item">
-                <Link to="/user/reviews" className="nav-link text-dark">
+                <Link to="/user/reviews"  className={`nav-link  ${location.pathname==='/user/reviews'?'active text-light':'text-dark'} `}>
                   <i className="bi bi-star-fill me-2" />
                   My Reviews
                 </Link>
               </li>
               <li className="wishlist nav-item">
-                <Link to="/user/wishlist" className="nav-link text-dark">
+                <Link to="/user/wishlist"  className={`nav-link  ${location.pathname==='/user/wishlist'?'active text-light':'text-dark'} `}>
                   <i className="bi bi-suit-heart-fill me-2" />
                   Wishlist
                 </Link>
               </li>
               <li className="setting nav-item">
-                <Link to="/user/setting" className="nav-link text-dark">
+                <Link to="/user/setting"  className={`nav-link  ${location.pathname==='/user/setting'?'active text-light':'text-dark'} `}>
                   <i className="bi bi-gear me-2" /> Settings
                 </Link>
               </li>
               <li className="logout nav-item">
-                <Link to="/user/" className="nav-link text-dark">
+                <Link to="/user/"  className={`nav-link  ${location.pathname==='/user/'?'active text-light':'text-dark'} `}>
                   <i className="bi bi-power me-2" /> Logout
                 </Link>
               </li>

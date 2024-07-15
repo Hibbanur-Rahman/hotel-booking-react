@@ -5,7 +5,7 @@ const Dashboard = () => {
     >
       <div className="infoList row m-0 p-3 pb-5 bg-primary pt-5">
         <div className="col-md-3  col-12 p-3 pt-0 pb-0">
-          <div className="TotalBooking card col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
+          <div className="TotalBooking card mt-lg-0 mt-3 col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
             <div className="icon bg-primary d-flex rounded-4 align-items-center justify-content-center">
               <i className="bi bi-cart text-light" />
             </div>
@@ -16,7 +16,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="col-md-3  col-12 p-3 pt-0 pb-0">
-          <div className="wishlist card col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
+          <div className="wishlist card mt-lg-0 mt-3 col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
             <div
               className="icon d-flex rounded-4 align-items-center justify-content-center"
               style={{ backgroundColor: "rgb(0, 207, 207)" }}
@@ -30,7 +30,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="col-md-3  col-12 p-3 pt-0 pb-0">
-          <div className="TotalTravel card col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
+          <div className="TotalTravel card mt-lg-0 mt-3 col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
             <div
               className="icon d-flex rounded-4 align-items-center justify-content-center"
               style={{ backgroundColor: "rgb(244, 181, 6)" }}
@@ -44,7 +44,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="col-md-3  col-12 p-3 pt-0 pb-0">
-          <div className="Reviews card col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
+          <div className="Reviews card mt-lg-0 mt-3 col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
             <div
               className="icon d-flex rounded-4 align-items-center justify-content-center"
               style={{ backgroundColor: "rgb(159, 0, 207)" }}
@@ -59,11 +59,11 @@ const Dashboard = () => {
         </div>
       </div>
       <div
-        className="row m-0 p-3 position-relative"
-        style={{ marginTop: "-150px !important" }}
+        className="row mb-0 me-0 ms-0 p-3 position-relative"
+        style={{ marginTop: "-150px" }}
       >
-        <div className="col-lg-6 responsive-column--m">
-          <div className="form-box card bg-light p-4">
+        <div className="col-lg-6 col-12 responsive-column--m">
+          <div className="form-box card mt-lg-0 mt-3 bg-light p-4">
             <div className="form-title-wrap">
               <h3 className="title fs-4">Statics Results</h3>
             </div>
@@ -86,8 +86,8 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-6">
-          <div className="NotificationList card bg-light">
+        <div className="col-lg-6 col-12">
+          <div className="NotificationList card mt-lg-0 mt-3 bg-light">
             <div className="row m-0 p-0 justify-content-between p-3">
               <p className="justify-content-start col-10 fw-bold m-0 p-0">
                 Notifications
@@ -96,7 +96,7 @@ const Dashboard = () => {
                 <i className="bi bi-check2-square" />
               </div>
             </div>
-            <div className="card row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
+            <div className="card mt-lg-0 mt-3 row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
               <div className="col-2 icon bg-primary rounded-5 d-flex align-items-center justify-content-center">
                 <i className="bi bi-bell text-light fs-5" />
               </div>
@@ -108,7 +108,7 @@ const Dashboard = () => {
                 <i className="bi bi-check2-square" />
               </div>
             </div>
-            <div className="card row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
+            <div className="card mt-lg-0 mt-3 row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
               <div className="col-2 icon bg-primary rounded-5 d-flex align-items-center justify-content-center">
                 <i className="bi bi-bell text-light fs-5" />
               </div>
@@ -120,7 +120,7 @@ const Dashboard = () => {
                 <i className="bi bi-check2-square" />
               </div>
             </div>
-            <div className="card row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
+            <div className="card mt-lg-0 mt-3 row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
               <div className="col-2 icon bg-primary rounded-5 d-flex align-items-center justify-content-center">
                 <i className="bi bi-bell text-light fs-5" />
               </div>
@@ -132,7 +132,7 @@ const Dashboard = () => {
                 <i className="bi bi-check2-square" />
               </div>
             </div>
-            <div className="card row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
+            <div className="card mt-lg-0 mt-3 row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
               <div className="col-2 icon bg-primary rounded-5 d-flex align-items-center justify-content-center">
                 <i className="bi bi-bell text-light fs-5" />
               </div>
@@ -144,7 +144,7 @@ const Dashboard = () => {
                 <i className="bi bi-check2-square" />
               </div>
             </div>
-            <div className="card row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
+            <div className="card mt-lg-0 mt-3 row d-flex flex-row m-0 p-3 border border-bottom-0 border-start-0 border-end-0 rounded-0">
               <div className="col-2 icon bg-primary rounded-5 d-flex align-items-center justify-content-center">
                 <i className="bi bi-bell text-light fs-5" />
               </div>
@@ -160,8 +160,8 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="row m-0 p-3">
-        <div className="col-6 messageAlert">
-          <div className="card p-3">
+        <div className="col-lg-6 col-12 messageAlert">
+          <div className="card mt-lg-0 mt-3 p-3">
             <div className="taskHead pb-4">
               <p className="m-0 p-0 fw-bold">Tasks</p>
             </div>
@@ -272,8 +272,8 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-6">
-          <div className="card paymentDetails">
+        <div className="col-lg-6 col-12">
+          <div className="card mt-lg-0 mt-3 paymentDetails" style={{marginTop:'0px'}}>
             <div className="ordersHead p-3 pb-4">
               <p className="p-0 fw-bold">Orders</p>
             </div>
