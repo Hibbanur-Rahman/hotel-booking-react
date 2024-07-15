@@ -1,4 +1,4 @@
-const MyListing=()=>{
+const Listing=()=>{
     return (
        <div>
   &lt;&gt;
@@ -240,4 +240,4 @@ const MyListing=()=>{
 
     )
 }
-export default MyListing;
+export default Listing;
