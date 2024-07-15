@@ -1,10 +1,12 @@
+import logo from '../assets/images/userDashboard/logo.png'
+import userImg from '../assets/images/userDashboard/userImg.jpg';
 const HeadingData = () => {
   return (
     <div className="heading row m-0 p-0 bg-primary pt-4 pb-5">
       <div className="upperNav row m-0 p-0 ps-3">
         <div className="left row col-6 d-flex flex-row justify-content-start align-items-center">
-          <img src="../../images/userDashboard/logo.png" alt />
-          <div className="search d-flex justify-content-end align-items-center col-8">
+          <img src={logo} alt style={{height:'70px',width:'70px'}}/>
+          <div className="search d-flex justify-content-end align-items-center col-8 position-relative">
             <input
               type="text"
               className="form-control p-2"
@@ -21,7 +23,7 @@ const HeadingData = () => {
             </div>
           </div>
           <div className="profileImg profileImgLeft rounded-5 overflow-hidden col-4 p-0 d-flex">
-            <img src="../../images/userDashboard/userImg.jpg" alt />
+            <img src={userImg} alt />
           </div>
           <div className="profileToolPit col-2 position-absolute m-0 p-0 z-1 d-none">
             <div className="card m-0 pt-2 w-auto border-0 overflow-hidden">
@@ -75,18 +77,15 @@ const HeadingData = () => {
               </li>
             </div>
           </div>
-          <p className="p-0 m-0 ps-3 text-light">&lt;%= user.name%&gt;</p>
+          <p className="p-0 m-0 ps-3 text-light">Hibbanur Rahman</p>
         </div>
       </div>
       <div className="lowerNav row m-0 p-0 d-flex align-items-center p-4">
         <div className="col-6 d-flex align-items-center">
-          <h2 className="text-light p-0 m-0">&lt;%= page%&gt;</h2>
+          <h2 className="text-light p-0 m-0">Dashboard</h2>
         </div>
         <div className="breadcrumb_items col-6 d-flex align-items-center justify-content-end">
-          {/* <nav className="w-auto" style={{-bsBreadcrumbDivider: 'url(
-  "data:image/svg + xml,
-  %3Csvgxmlns="http://www.w3.org/2000/svg"width="8"height="8"%3E%3Cpathd="M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z"fill="%236c757d"/%3E%3C/svg%3E"
-)'}} aria-label="breadcrumb">
+          <nav className="w-auto" aria-label="breadcrumb">
           <ol className="breadcrumb w-auto p-2 rounded-2 m-0">
             <li className="breadcrumb-item">
               <a href="#" className="text-light">Home</a>
@@ -95,10 +94,10 @@ const HeadingData = () => {
               <a href="/userDashboard" className="text-light">Dashboard</a>
             </li>
             <li className="breadcrumb-item active text-light" aria-current="page">
-              &lt;%= page%&gt;
+              Dashboard
             </li>
           </ol>
-        </nav> */}
+        </nav>
         </div>
       </div>
     </div>

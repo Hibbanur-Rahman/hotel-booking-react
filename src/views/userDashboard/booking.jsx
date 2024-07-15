@@ -1,6 +1,6 @@
 const Booking = () => {
   return (
-    <div className="contents container-fluid m-0 p-0 ">
+    <div className=" container-fluid m-0 p-0 ">
       <div className="bookingTable card m-5 p-3 border-0 position-relative">
         <p className="fw-bold">Booking Results</p>
         <table id="example" className="display" style={{ width: "100%" }}>

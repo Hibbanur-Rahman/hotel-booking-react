@@ -7,16 +7,19 @@ import Profile from "./profile";
 import Reviews from "./reviews";
 import Wishlist from "./wishlist";
 import HeadingData from "../../components/headingData";
+import Navbar from "../../components/navbar";
 
 const DashboardLayout = () => {
   return (
+    <>
+    <Navbar/>
     <div
-      className="row m-0 p-0 d-flex flex-row overflow-y-hidden"
-      style={{ height: "100vh" }}
+      className="row m-0 p-0 d-flex flex-row overflow-y-hidden position-relative"
+      style={{ height: "100vh",top:'55px', }}
     >
       <DashboardSidebar />
-      <div className="col-10 m-0 p-0">
-        <HeadingData/>
+      <div className="contents col-lg-10 col-12 m-0 p-0">
+        {/* <HeadingData/> */}
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
@@ -27,6 +30,7 @@ const DashboardLayout = () => {
         </Routes>
       </div>
     </div>
+    </>
   );
 };
 

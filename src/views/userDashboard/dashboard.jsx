@@ -1,10 +1,10 @@
 const Dashboard = () => {
   return (
     <div
-      className="contents  m-0 p-0 overflow-y-scroll"
+      className=" m-0 p-0 overflow-y-scroll"
     >
-      <div className="infoList row m-0 p-3 pb-5 bg-primary">
-        <div className="col-3 p-3 pt-0 pb-0">
+      <div className="infoList row m-0 p-3 pb-5 bg-primary pt-5">
+        <div className="col-md-3  col-12 p-3 pt-0 pb-0">
           <div className="TotalBooking card col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
             <div className="icon bg-primary d-flex rounded-4 align-items-center justify-content-center">
               <i className="bi bi-cart text-light" />
@@ -15,7 +15,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-3 p-3 pt-0 pb-0">
+        <div className="col-md-3  col-12 p-3 pt-0 pb-0">
           <div className="wishlist card col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
             <div
               className="icon d-flex rounded-4 align-items-center justify-content-center"
@@ -29,7 +29,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-3 p-3 pt-0 pb-0">
+        <div className="col-md-3  col-12 p-3 pt-0 pb-0">
           <div className="TotalTravel card col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
             <div
               className="icon d-flex rounded-4 align-items-center justify-content-center"
@@ -43,7 +43,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-3 p-3 pt-0 pb-0">
+        <div className="col-md-3  col-12 p-3 pt-0 pb-0">
           <div className="Reviews card col-12 p-4 ps-1 bg-light d-flex flex-row align-items-center justify-content-center">
             <div
               className="icon d-flex rounded-4 align-items-center justify-content-center"
