@@ -25,6 +25,7 @@ const Login = () => {
     email: "",
     password: "",
     repeatPassword: "",
+    role:'user'
   });
 
   const handleLoginShow = () => {
