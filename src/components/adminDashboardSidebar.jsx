@@ -1,8 +1,21 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import profileImg from "../assets/images/userDashboard/userImg.jpg";
-
+import toast from "react-hot-toast";
+import { useSelector, useDispatch } from 'react-redux';
+import { logout, login,selectAuth } from '../redux/slices/authSlice';
 const DashboardSidebar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const { isAuthenticated, user } = useSelector(selectAuth);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(logout());
+    toast.success("Logout successfully!!");
+    navigate("/");
+  };
+
   return (
     <>
       <div
@@ -124,16 +137,9 @@ const DashboardSidebar = () => {
             </Link>
           </li>
           <li className="logout nav-item">
-            <Link
-              to="/admin/"
-              className={`nav-link  ${
-                location.pathname === "/admin/"
-                  ? "active text-light"
-                  : "text-dark"
-              } `}
-            >
-              <i className="bi bi-power me-2" /> Logout
-            </Link>
+            <div className="nav-link text-danger" onClick={handleLogout} style={{cursor:'pointer'}}>
+              <i className="bi bi-power me-2 text-danger" /> Logout
+            </div>
           </li>
         </ul>
       </div>
@@ -276,16 +282,9 @@ const DashboardSidebar = () => {
                 </Link>
               </li>
               <li className="logout nav-item">
-                <Link
-                  to="/admin/"
-                  className={`nav-link  ${
-                    location.pathname === "/admin/"
-                      ? "active text-light"
-                      : "text-dark"
-                  } `}
-                >
-                  <i className="bi bi-power me-2" /> Logout
-                </Link>
+                <div className="nav-link text-danger" onClick={handleLogout}>
+                  <i className="bi bi-power me-2 text-danger" /> Logout
+                </div>
               </li>
             </ul>
           </div>

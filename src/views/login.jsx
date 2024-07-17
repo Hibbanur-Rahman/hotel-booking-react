@@ -25,7 +25,7 @@ const Login = () => {
     email: "",
     password: "",
     repeatPassword: "",
-    role:'user'
+    role: "user",
   });
 
   const handleLoginShow = () => {
@@ -53,7 +53,11 @@ const Login = () => {
           email: "",
           password: "",
         });
-        navigate("/user/dashboard");
+        if (response.data.data.role === "user") {
+          navigate("/user/dashboard");
+        } else if (response.data.data.role === "admin") {
+          navigate("/admin/dashboard");
+        }
       }
     } catch (error) {
       setIsLoginSubmiting(false);

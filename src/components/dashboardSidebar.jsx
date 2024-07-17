@@ -1,9 +1,20 @@
-import { Link,useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import profileImg from "../assets/images/userDashboard/userImg.jpg";
-
-
+import toast from "react-hot-toast";
+import { useSelector, useDispatch } from 'react-redux';
+import { logout, login,selectAuth } from '../redux/slices/authSlice';
 const DashboardSidebar = () => {
-  const location=useLocation();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const { isAuthenticated, user } = useSelector(selectAuth);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(logout());
+    toast.success("Logout successfully!!");
+    navigate("/");
+  };
   return (
     <>
       <div
@@ -22,44 +33,90 @@ const DashboardSidebar = () => {
         <hr />
         <ul className="nav nav-pills flex-column mb-auto">
           <li className="dashBoard nav-item ">
-            <Link to="/user/dashboard" className={`nav-link  ${location.pathname==='/user/dashboard'?'active text-light':'text-dark'} `}>
+            <Link
+              to="/user/dashboard"
+              className={`nav-link  ${
+                location.pathname === "/user/dashboard"
+                  ? "active text-light"
+                  : "text-dark"
+              } `}
+            >
               <i className="bi bi-speedometer2 me-2" />
               Dashboard
             </Link>
           </li>
           <li className="myBooking nav-item">
-            <Link to="/user/booking"  className={`nav-link  ${location.pathname==='/user/booking'?'active text-light':'text-dark'} `}>
+            <Link
+              to="/user/booking"
+              className={`nav-link  ${
+                location.pathname === "/user/booking"
+                  ? "active text-light"
+                  : "text-dark"
+              } `}
+            >
               <i className="bi bi-cart2 me-2" />
               My Booking
             </Link>
           </li>
           <li className="myProfile nav-item">
-            <Link to="/user/profile"  className={`nav-link  ${location.pathname==='/user/profile'?'active text-light':'text-dark'} `}>
+            <Link
+              to="/user/profile"
+              className={`nav-link  ${
+                location.pathname === "/user/profile"
+                  ? "active text-light"
+                  : "text-dark"
+              } `}
+            >
               <i className="bi bi-person me-2" />
               My Profile
             </Link>
           </li>
           <li className="myReviews nav-item">
-            <Link to="/user/reviews"  className={`nav-link  ${location.pathname==='/user/reviews'?'active text-light':'text-dark'} `}>
+            <Link
+              to="/user/reviews"
+              className={`nav-link  ${
+                location.pathname === "/user/reviews"
+                  ? "active text-light"
+                  : "text-dark"
+              } `}
+            >
               <i className="bi bi-star-fill me-2" />
               My Reviews
             </Link>
           </li>
           <li className="wishlist nav-item">
-            <Link to="/user/wishlist"  className={`nav-link  ${location.pathname==='/user/wishlist'?'active text-light':'text-dark'} `}>
+            <Link
+              to="/user/wishlist"
+              className={`nav-link  ${
+                location.pathname === "/user/wishlist"
+                  ? "active text-light"
+                  : "text-dark"
+              } `}
+            >
               <i className="bi bi-suit-heart-fill me-2" />
               Wishlist
             </Link>
           </li>
           <li className="setting nav-item">
-            <Link to="/user/setting"  className={`nav-link  ${location.pathname==='/user/setting'?'active text-light':'text-dark'} `}>
+            <Link
+              to="/user/setting"
+              className={`nav-link  ${
+                location.pathname === "/user/setting"
+                  ? "active text-light"
+                  : "text-dark"
+              } `}
+            >
               <i className="bi bi-gear me-2" /> Settings
             </Link>
           </li>
           <li className="logout nav-item">
-            <Link to="/user/"  className={`nav-link  ${location.pathname==='/user/'?'active text-light':'text-dark'} `}>
-              <i className="bi bi-power me-2" /> Logout
-            </Link>
+            <div
+              className="nav-link text-danger"
+              onClick={handleLogout}
+              style={{ cursor: "pointer" }}
+            >
+              <i className="bi bi-power me-2 text-danger" /> Logout
+            </div>
           </li>
         </ul>
       </div>
@@ -69,7 +126,7 @@ const DashboardSidebar = () => {
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasExample"
         aria-controls="offcanvasExample"
-        style={{zIndex:12,}}
+        style={{ zIndex: 12 }}
       ></i>
       <div className=" d-lg-none d-flex">
         <div
@@ -89,7 +146,7 @@ const DashboardSidebar = () => {
           <div className="offcanvas-body">
             <div className="author row align-items-center  text-decoration-none m-0">
               <div className="profileImg rounded-5 overflow-hidden col-4 p-0 d-flex">
-                <img src={profileImg} alt  />
+                <img src={profileImg} alt />
               </div>
               <div className="userDetails col-8 pe-0">
                 <h5>Hibbanur Rahman</h5>
@@ -99,44 +156,90 @@ const DashboardSidebar = () => {
             <hr />
             <ul className="nav nav-pills flex-column mb-auto">
               <li className="dashBoard nav-item">
-                <Link to="/user/dashboard"  className={`nav-link  ${location.pathname==='/user/dashboard'?'active text-light':'text-dark'} `}>
+                <Link
+                  to="/user/dashboard"
+                  className={`nav-link  ${
+                    location.pathname === "/user/dashboard"
+                      ? "active text-light"
+                      : "text-dark"
+                  } `}
+                >
                   <i className="bi bi-speedometer2 me-2" />
                   Dashboard
                 </Link>
               </li>
               <li className="myBooking nav-item">
-                <Link to="/user/booking"  className={`nav-link  ${location.pathname==='/user/booking'?'active text-light':'text-dark'} `}>
+                <Link
+                  to="/user/booking"
+                  className={`nav-link  ${
+                    location.pathname === "/user/booking"
+                      ? "active text-light"
+                      : "text-dark"
+                  } `}
+                >
                   <i className="bi bi-cart2 me-2" />
                   My Booking
                 </Link>
               </li>
               <li className="myProfile nav-item">
-                <Link to="/user/profile"  className={`nav-link  ${location.pathname==='/user/profile'?'active text-light':'text-dark'} `}>
+                <Link
+                  to="/user/profile"
+                  className={`nav-link  ${
+                    location.pathname === "/user/profile"
+                      ? "active text-light"
+                      : "text-dark"
+                  } `}
+                >
                   <i className="bi bi-person me-2" />
                   My Profile
                 </Link>
               </li>
               <li className="myReviews nav-item">
-                <Link to="/user/reviews"  className={`nav-link  ${location.pathname==='/user/reviews'?'active text-light':'text-dark'} `}>
+                <Link
+                  to="/user/reviews"
+                  className={`nav-link  ${
+                    location.pathname === "/user/reviews"
+                      ? "active text-light"
+                      : "text-dark"
+                  } `}
+                >
                   <i className="bi bi-star-fill me-2" />
                   My Reviews
                 </Link>
               </li>
               <li className="wishlist nav-item">
-                <Link to="/user/wishlist"  className={`nav-link  ${location.pathname==='/user/wishlist'?'active text-light':'text-dark'} `}>
+                <Link
+                  to="/user/wishlist"
+                  className={`nav-link  ${
+                    location.pathname === "/user/wishlist"
+                      ? "active text-light"
+                      : "text-dark"
+                  } `}
+                >
                   <i className="bi bi-suit-heart-fill me-2" />
                   Wishlist
                 </Link>
               </li>
               <li className="setting nav-item">
-                <Link to="/user/setting"  className={`nav-link  ${location.pathname==='/user/setting'?'active text-light':'text-dark'} `}>
+                <Link
+                  to="/user/setting"
+                  className={`nav-link  ${
+                    location.pathname === "/user/setting"
+                      ? "active text-light"
+                      : "text-dark"
+                  } `}
+                >
                   <i className="bi bi-gear me-2" /> Settings
                 </Link>
               </li>
               <li className="logout nav-item">
-                <Link to="/user/"  className={`nav-link  ${location.pathname==='/user/'?'active text-light':'text-dark'} `}>
-                  <i className="bi bi-power me-2" /> Logout
-                </Link>
+                <div
+                  className="nav-link text-danger"
+                  onClick={handleLogout}
+                  style={{ cursor: "pointer" }}
+                >
+                  <i className="bi bi-power me-2 text-danger" /> Logout
+                </div>
               </li>
             </ul>
           </div>

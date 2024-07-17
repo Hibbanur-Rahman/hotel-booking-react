@@ -1,0 +1,57 @@
+.notification {
+    position: relative;
+    background-color: #0a465c1a;
+    height: 40px;
+    width: 40px;
+
+    i {
+        color: #000;
+    }
+
+    div {
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+        box-sizing: border-box;
+
+        p {
+            font-size: 12px;
+        }
+
+        margin-top: -40px;
+        margin-right: -20px;
+    }
+}
+
+.profileImg {
+    height: 50px;
+    width: 50px;
+    border-radius: 50% !important;
+    cursor: pointer;
+
+    img {
+        height: 80px;
+        width: 80px;
+       
+    }
+    &:hover + .profileToolPit{
+        display: block;
+    }
+   
+}
+
+.profileToolPit {
+    display: none;
+    top: 59px;
+
+    &:hover{
+        display: block;
+    }
+    .card {
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+
+        li:hover {
+            background-color: #e0dede;
+        }
+    }
+}

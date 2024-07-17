@@ -1,15 +1,42 @@
+// src/components/Navbar.jsx
 import "../assets/style/aboutUs_css/style.css";
 import logo from "../assets/images/login/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import userImg from '../assets/images/userDashboard/userImg.jpg';
+import '../assets/style/navbar_css/navbar.scss';
+import toast from "react-hot-toast";
+import { useSelector, useDispatch } from 'react-redux';
+import { logout, login,selectAuth } from '../redux/slices/authSlice';
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const { isAuthenticated, user } = useSelector(selectAuth);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(logout());
+    toast.success("Logout successfully!!");
+    navigate("/");
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Fetch user details from token or API here and dispatch login
+      const user = { name: "Hibbanur Rahman" }; // Example user data
+      dispatch(login({ user, token }));
+    }
+  }, [dispatch]);
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg position-fixed z-3 bg-white border-bottom w-100">
         <div className="container">
           <div className="d-flex align-content-center">
-            <Link className to="/">
-              <img src={logo} alt="logo" />
+            <Link  to="/">
+              <img src={logo}  />
             </Link>
             <div className="dropdown dropdown-center">
               <button
@@ -60,8 +87,8 @@ const Navbar = () => {
             aria-labelledby="offcanvasWithBothOptionsLabel"
           >
             <div className="offcanvas-header">
-              <Link className to="/">
-                <img src={logo} alt="logo" />
+              <Link  to="/">
+                <img src={logo}  />
               </Link>
               <button
                 type="button"
@@ -90,7 +117,7 @@ const Navbar = () => {
                   to="/aboutUs"
                 >
                   About Us
-                </Link> 
+                </Link>
               </li>
               <li className="nav-item dropdown">
                 <Link
@@ -143,22 +170,92 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            <div className="ms-3 m-lg-0 d-flex">
-              <button
-                className="me-2 border-1 border-dark border-opacity-10 rounded bg-transparent px-2"
-                type="submit"
-              >
-                <i className="bi bi-cart" style={{ color: "#2596be" }} />
-              </button>
-              <Link to="/login">
-                {" "}
-                <button className="custom-btn">Login</button>
-              </Link>
-            </div>
+            {isAuthenticated ? (
+              <div className="ms-3 m-lg-0 d-flex">
+                <div className="notification rounded-5 p-2 d-flex align-items-center justify-content-center me-3">
+                  <i className="bi bi-bell p-0 m-0" />
+                  <div className="notificationCount bg-light p-1 d-flex align-items-center justify-content-center position-absolute">
+                    <p className="p-0 m-0">5</p>
+                  </div>
+                </div>
+                <div className="profileImg profileImgLeft rounded-5 overflow-hidden col-4 p-0 d-flex">
+                  <img src={userImg}/>
+                </div>
+                
+                <div className="profileToolPit col-2 position-absolute m-0 p-0 z-1 ">
+                  <div className="card m-0 pt-2 w-auto border-0 overflow-hidden">
+                    <p className="m-0 p-0 fs-5 fw-bold text-secondary ps-3">
+                      WELCOME!
+                    </p>
+                    <li className="list-unstyled  p-0  ">
+                      <Link
+                        to="/user/profile"
+                        className="text-decoration-none ps-4 pt-3 pb-3 m-0  text-dark d-flex align-items-center"
+                      >
+                        <i className="la la-user text-dark fs-4" />
+                        <p className="m-0 p-0 w-auto ps-2 fs-6">My Profile</p>
+                      </Link>
+                    </li>
+                    <li className="list-unstyled  p-0  ">
+                      <Link
+                        href="/user/booking"
+                        className="text-decoration-none ps-4 pt-3 pb-3 m-0  text-dark d-flex align-items-center"
+                      >
+                        <i className="la la-shopping-cart ext-dark fs-4" />
+                        <p className="m-0 p-0 w-auto ps-2 fs-6">My Booking</p>
+                      </Link>
+                    </li>
+                    <li className="list-unstyled  p-0  ">
+                      <Link
+                        to="/user/reviews"
+                        className="text-decoration-none ps-4 pt-3 pb-3 m-0  text-dark d-flex align-items-center"
+                      >
+                        <i className="la la-heart text-dark fs-4" />
+                        <p className="m-0 p-0 w-auto ps-2 fs-6">My Reviews</p>
+                      </Link>
+                    </li>
+                    <li className="list-unstyled  p-0  ">
+                      <Link
+                        href="/user/setting"
+                        className="text-decoration-none ps-4 pt-3 pb-3 m-0  text-dark d-flex align-items-center"
+                      >
+                        <i className="la la-gear text-dark fs-4" />
+                        <p className="m-0 p-0 w-auto ps-2 fs-6">Settings</p>
+                      </Link>
+                    </li>
+                    <li className="list-unstyled  p-0  ">
+                      <div
+                        className="text-decoration-none ps-4 pt-3 pb-3 m-0  text-dark d-flex align-items-center"
+                        style={{cursor:'pointer'}}
+                        onClick={handleLogout}
+                      >
+                        <i className="la la-power-off text-danger fs-4" />
+                        <p className="m-0 p-0 w-auto ps-2 fs-6 text-danger">Logout</p>
+                      </div>
+                    </li>
+                  </div>
+                </div>
+                <p className="p-0 m-0 ps-3 text-dark">{user.name}</p>
+              </div>
+            ) : (
+              <div className="ms-3 m-lg-0 d-flex">
+                <button
+                  className="me-2 border-1 border-dark border-opacity-10 rounded bg-transparent px-2"
+                  type="submit"
+                >
+                  <i className="bi bi-cart" style={{ color: "#2596be" }} />
+                </button>
+                <Link to="/login">
+                  {" "}
+                  <button className="custom-btn">Login</button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </nav>
     </div>
   );
 };
+
 export default Navbar;
