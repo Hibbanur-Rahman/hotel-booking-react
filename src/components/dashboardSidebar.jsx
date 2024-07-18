@@ -15,6 +15,7 @@ const DashboardSidebar = () => {
     toast.success("Logout successfully!!");
     navigate("/");
   };
+
   return (
     <>
       <div
@@ -26,7 +27,10 @@ const DashboardSidebar = () => {
             <img src={profileImg} alt />
           </div>
           <div className="userDetails col-8 pe-0">
-            <h5>Hibbanur Rahman</h5>
+            {
+              user?(            <h5>{user.username}</h5>
+              ):(<h5>Hibban</h5>)
+            }
             <p className="p-0 m-0">Member Since Dec,2023</p>
           </div>
         </div>

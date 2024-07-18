@@ -8,6 +8,7 @@ import '../assets/style/navbar_css/navbar.scss';
 import toast from "react-hot-toast";
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, login,selectAuth } from '../redux/slices/authSlice';
+import { decode } from "jwt-js-decode";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,8 @@ const Navbar = () => {
     const token = localStorage.getItem("token");
     if (token) {
       // Fetch user details from token or API here and dispatch login
-      const user = { name: "Hibbanur Rahman" }; // Example user data
+      const jwt=decode(token)
+      const user = jwt.payload.user; // Example user data
       dispatch(login({ user, token }));
     }
   }, [dispatch]);
@@ -171,14 +173,14 @@ const Navbar = () => {
               </li>
             </ul>
             {isAuthenticated ? (
-              <div className="ms-3 m-lg-0 d-flex">
+              <div className="ms-3 m-lg-0 d-flex align-items-center">
                 <div className="notification rounded-5 p-2 d-flex align-items-center justify-content-center me-3">
                   <i className="bi bi-bell p-0 m-0" />
                   <div className="notificationCount bg-light p-1 d-flex align-items-center justify-content-center position-absolute">
                     <p className="p-0 m-0">5</p>
                   </div>
                 </div>
-                <div className="profileImg profileImgLeft rounded-5 overflow-hidden col-4 p-0 d-flex">
+                <div className="profileImg profileImgLeft rounded-5 overflow-hidden col-4 p-0 d-flex justify-content-center align-items-center">
                   <img src={userImg}/>
                 </div>
                 
@@ -235,7 +237,7 @@ const Navbar = () => {
                     </li>
                   </div>
                 </div>
-                <p className="p-0 m-0 ps-3 text-dark">{user.name}</p>
+                <p className="p-0 m-0 ps-3 text-dark">{user.username}</p>
               </div>
             ) : (
               <div className="ms-3 m-lg-0 d-flex">

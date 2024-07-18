@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes,useNavigate } from "react-router-dom";
 import "../../assets/style/userDashboard_css/main.scss";
 import DashboardSidebar from "../../components/dashboardSidebar";
 import Dashboard from "./dashboard";
@@ -9,8 +9,16 @@ import Wishlist from "./wishlist";
 import Setting from "./setting";
 import HeadingData from "../../components/headingData";
 import Navbar from "../../components/navbar";
+import { useEffect } from "react";
+
 
 const DashboardLayout = () => {
+  const navigate=useNavigate();
+  useEffect(()=>{
+    if(localStorage.getItem('token')===null){
+      navigate('/');
+    }
+  },[])
   return (
     <>
     <Navbar/>

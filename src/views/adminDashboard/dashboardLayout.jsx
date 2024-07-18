@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Routes,useNavigate } from "react-router-dom";
 import "../../assets/style/userDashboard_css/main.scss";
 import '../../assets/style/adminDashboard_css/main.scss';
 import DashboardSidebar from "../../components/adminDashboardSidebar";
@@ -13,6 +14,13 @@ import HeadingData from "../../components/headingData";
 import Navbar from "../../components/navbar";
 
 const DashboardLayout = () => {
+  const navigate=useNavigate();
+  useEffect(()=>{
+    if(localStorage.getItem('token')===null){
+      navigate('/');
+    }
+    
+  },[])
   return (
     <>
     <Navbar/>

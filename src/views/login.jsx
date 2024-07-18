@@ -6,8 +6,11 @@ import axios from "axios";
 import DOMAIN from "../../environmentVariables";
 import httpStatusCode from "../constants/httpStatusCode";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/authSlice";
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   const [isLoginShow, setIsLoginShow] = useState(true);
   const [isRegisterShow, setIsRegisterShow] = useState(false);
   const [isLoginPasswordShow, setIsLoginPasswordShow] = useState(false);
@@ -53,6 +56,9 @@ const Login = () => {
           email: "",
           password: "",
         });
+        const user=response.data.data.user;
+        const token=response.data.data.token
+        dispatch(login({user,token}))
         if (response.data.data.role === "user") {
           navigate("/user/dashboard");
         } else if (response.data.data.role === "admin") {

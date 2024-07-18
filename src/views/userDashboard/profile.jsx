@@ -1,6 +1,28 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import toast from "react-hot-toast";
+import axios from "axios";
+import DOMAIN from "../../../environmentVariables";
+import httpStatusCode from "../../constants/httpStatusCode";
 const Profile = () => {
+  const [user, setUser] = useState("");
+  const handleViewUserDetails = async () => {
+    try {
+      const response = await axios.post(`${DOMAIN}/view-user-profile`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      if (response.status === httpStatusCode.OK) {
+        setUser(response.data.data);
+      }
+    } catch (error) {
+      toast.error("Failed to view User detail");
+    }
+  };
+  useEffect(() => {
+    handleViewUserDetails();
+  }, []);
   return (
     <div
       className="row m-0 p-0 position-relative justify-content-center align-items-center"
@@ -15,14 +37,14 @@ const Profile = () => {
         </div>
         <div className="row m-0 p-0 border border-bottom-1 border-top-0 border-start-0 border-end-0 p-3 ps-0">
           <div className="col-3">
-            <p className="fw-bold m-0">First Name</p>
+            <p className="fw-bold m-0">User-Name</p>
           </div>
           <div className="col-1">:</div>
           <div className="col-7">
-            <p className="m-0">&lt;%= user.firstName%&gt;</p>
+            <p className="m-0">{user.username}</p>
           </div>
         </div>
-        <div className="row m-0 p-0 border border-bottom-1 border-top-0 border-start-0 border-end-0 p-3 ps-0">
+        {/* <div className="row m-0 p-0 border border-bottom-1 border-top-0 border-start-0 border-end-0 p-3 ps-0">
           <div className="col-3">
             <p className="fw-bold m-0">Last Name</p>
           </div>
@@ -30,14 +52,14 @@ const Profile = () => {
           <div className="col-7">
             <p className="m-0">&lt;%= user.lastName%&gt;</p>
           </div>
-        </div>
+        </div> */}
         <div className="row m-0 p-0 border border-bottom-1 border-top-0 border-start-0 border-end-0 p-3 ps-0">
           <div className="col-3">
             <p className="fw-bold m-0">Email Address</p>
           </div>
           <div className="col-1">:</div>
           <div className="col-7">
-            <p className="m-0">&lt;%= user.email%&gt;</p>
+            <p className="m-0">{user.email}</p>
           </div>
         </div>
         <div className="row m-0 p-0 border border-bottom-1 border-top-0 border-start-0 border-end-0 p-3 ps-0">
@@ -46,7 +68,11 @@ const Profile = () => {
           </div>
           <div className="col-1">:</div>
           <div className="col-7">
-            <p className="m-0">+91-9973152523</p>
+            {user.phone ? (
+              <p className="m-0">{user.phone}</p>
+            ) : (
+              <p className="m-0">--------</p>
+            )}
           </div>
         </div>
         <div className="row m-0 p-0 border border-bottom-1 border-top-0 border-start-0 border-end-0 p-3 ps-0">
@@ -55,7 +81,11 @@ const Profile = () => {
           </div>
           <div className="col-1">:</div>
           <div className="col-7">
-            <p className="m-0">11 Nov 2004</p>
+          {user.DOB ? (
+              <p className="m-0">{user.DOB}</p>
+            ) : (
+              <p className="m-0">--------</p>
+            )}
           </div>
         </div>
         <div className="row m-0 p-0 border border-bottom-1 border-top-0 border-start-0 border-end-0 p-3 ps-0">
@@ -64,9 +94,11 @@ const Profile = () => {
           </div>
           <div className="col-1">:</div>
           <div className="col-7">
-            <p className="m-0">
-              Gacchibowli,telecome nagar,hyderabad,telangana,500032
-            </p>
+          {user.address ? (
+              <p className="m-0">{user.address}</p>
+            ) : (
+              <p className="m-0">--------</p>
+            )}
           </div>
         </div>
         <div className="row m-0 p-4 ps-0 pb-0">

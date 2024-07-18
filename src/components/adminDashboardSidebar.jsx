@@ -27,7 +27,7 @@ const DashboardSidebar = () => {
             <img src={profileImg} alt />
           </div>
           <div className="userDetails col-8 pe-0">
-            <h5>Hibbanur Rahman</h5>
+            <h5>{user.username}</h5>
             <p className="p-0 m-0">Member Since Dec,2023</p>
           </div>
         </div>
@@ -172,7 +172,7 @@ const DashboardSidebar = () => {
                 <img src={profileImg} alt />
               </div>
               <div className="userDetails col-8 pe-0">
-                <h5>Hibbanur Rahman</h5>
+                <h5>{user.username}</h5>
                 <p className="p-0 m-0">Member Since Dec,2023</p>
               </div>
             </div>
