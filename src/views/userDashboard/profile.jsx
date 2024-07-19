@@ -13,7 +13,7 @@ const Profile = () => {
           Authorization: localStorage.getItem("token"),
         },
       });
-      if (response.status === httpStatusCode.OK) {
+      if (response.status === httpStatusCode.Ok) {
         setUser(response.data.data);
       }
     } catch (error) {

@@ -48,7 +48,7 @@ const Login = () => {
     try {
       setIsLoginSubmiting(true);
       const response = await axios.post(`${DOMAIN}/login`, userLoginData);
-      if (response.status == httpStatusCode.OK) {
+      if (response.status == httpStatusCode.Ok) {
         setIsLoginSubmiting(false);
         toast.success("Login Successfull");
         localStorage.setItem("token", response.data.data.token);
@@ -84,7 +84,7 @@ const Login = () => {
       }
       setIsRegisterSubmiting(true);
       const response = await axios.post(`${DOMAIN}/register`, userRegisterData);
-      if (response.status == httpStatusCode.CREATED) {
+      if (response.status == httpStatusCode.Created) {
         setIsRegisterSubmiting(false);
         toast.success("Register Successfull");
         setUserRegisterData({

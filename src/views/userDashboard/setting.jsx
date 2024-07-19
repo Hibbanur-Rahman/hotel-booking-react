@@ -36,7 +36,7 @@ const Setting = () => {
           Authorization: localStorage.getItem("token"),
         },
       });
-      if (response.status === httpStatusCode.OK) {
+      if (response.status === httpStatusCode.Ok) {
         setUser(response.data.data);
       }
     } catch (error) {
@@ -55,7 +55,7 @@ const Setting = () => {
             Authorization:localStorage.getItem('token')
           }
         })
-        if(response.status===httpStatusCode.OK){
+        if(response.status===httpStatusCode.Ok){
           toast.success('User Details Updated Successfully')
         }
     }catch(error){

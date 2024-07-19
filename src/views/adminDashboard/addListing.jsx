@@ -1,4 +1,184 @@
+import carImg from "../../assets/images/adminDashboard/car-img.png";
+import uploadIcon from "../../assets/images/adminDashboard/upload-icon.png";
+import toast from "react-hot-toast";
+import axios, { HttpStatusCode } from "axios";
+import DOMAIN from "../../../environmentVariables";
+
+import { useState } from "react";
 const AddListing = () => {
+  const [hotelDetails, setHotelDetails] = useState({
+    name: "",
+    categories: "",
+    HotelKeywords: "",
+    description: "",
+    locality: {
+      latitude: "",
+      longitude: "",
+      city: "",
+      address: "",
+      pin: "",
+      state: "",
+      mobile: "",
+      email: "",
+      website: "",
+    },
+    socialLinks: {
+      facebook: "",
+      twitter: "",
+      instagram: "",
+      linkedin: "",
+    },
+    menuItems: [
+      {
+        ItemName: "",
+        ItemCategory: "",
+        ItemPrice: "",
+        ItemDescription: "",
+      },
+    ],
+    amenities: [],
+    workingHours: {
+      Monday: {
+        opening: "",
+        closing: "",
+      },
+      Tuesday: {
+        opening: "",
+        closing: "",
+      },
+      Wednessday: {
+        opening: "",
+        closing: "",
+      },
+      Thursday: {
+        opening: "",
+        closing: "",
+      },
+      Friday: {
+        opening: "",
+        closing: "",
+      },
+      Saturday: {
+        opening: "",
+        closing: "",
+      },
+      Sunday: {
+        opening: "",
+        closing: "",
+      },
+    },
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setHotelDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+  const handleLocalityChange = (e) => {
+    const { name, value } = e.target;
+    setHotelDetails((prevDetails) => ({
+      ...prevDetails,
+      locality: {
+        ...prevDetails.locality,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleSocialLinksChange = (e) => {
+    const { name, value } = e.target;
+    setHotelDetails((prevDetails) => ({
+      ...prevDetails,
+      socialLinks: {
+        ...prevDetails.socialLinks,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleMenuItemChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedMenuItems = hotelDetails.menuItems.map((item, i) =>
+      i === index ? { ...item, [name]: value } : item
+    );
+    setHotelDetails((prevDetails) => ({
+      ...prevDetails,
+      menuItems: updatedMenuItems,
+    }));
+  };
+
+  const handleAddMenuItem = () => {
+    setHotelDetails((prevDetails) => ({
+      ...prevDetails,
+      menuItems: [
+        ...prevDetails.menuItems,
+        { ItemName: "", ItemCategory: "", ItemPrice: "", ItemDescription: "" },
+      ],
+    }));
+  };
+
+  const handleAmenitiesChange = (e) => {
+    const { name, checked } = e.target;
+    setHotelDetails((prevDetails) => {
+      const amenities = checked
+        ? [...prevDetails.amenities, name]
+        : prevDetails.amenities.filter((amenity) => amenity !== name);
+      return { ...prevDetails, amenities };
+    });
+  };
+
+  const handleWorkingHoursChange = (e) => {
+    const { name, value, type } = e.target;
+
+    // Handle working hours change
+    const [day, timeType] = name.split(/(?=[A-Z])/);
+    if (day && timeType) {
+      setHotelDetails((prevState) => ({
+        ...prevState,
+        workingHours: {
+          ...prevState.workingHours,
+          [day]: {
+            ...prevState.workingHours[day],
+            [timeType.toLowerCase()]: value,
+          },
+        },
+      }));
+    }
+  };
+
+  const handleSubmitListingInfo = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${DOMAIN}/add-hotel-info`,
+        {
+          name: hotelDetails.name,
+          categories: hotelDetails.categories,
+          HotelKeywords: hotelDetails.HotelKeywords,
+          description: hotelDetails.description,
+          locality: hotelDetails.locality,
+          socialLinks: hotelDetails.socialLinks,
+          menuItems: hotelDetails.menuItems,
+          amenities: hotelDetails.amenities,
+          workingHours:hotelDetails.workingHours
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      if (response.status ===HttpStatusCode.Ok) {
+        toast.success("Hotel listing added successfully");
+      }
+    } catch (error) {
+      console.log("Error submitting listing info:", error);
+      toast.error("Failed to add the listing info");
+    }
+  };
   return (
     <div className="main container-fluid d-flex m-0 p-0 ">
       <div
@@ -7,15 +187,18 @@ const AddListing = () => {
       >
         <div className="addListingMain row m-0 p-5">
           {/* ========================= listingInfo ================================= */}
-          <div className="listingInfo card m-0 p-0 border-0" style={{maxWidth:'100%'}}>
+          <div
+            className="listingInfo card m-0 p-0 border-0"
+            style={{ maxWidth: "100%" }}
+          >
             <div className="row m-0 p-3 align-items-center border border-start-0 border-bottom-1 border-top-0 border-end-0">
               <i className="bi bi-file-earmark-fill text-primary w-auto m-0 p-0 pe-2" />
               <h4 className="fw-bold fs-6 w-auto m-0 p-0">Listing Info</h4>
             </div>
             <form
-              action="/adminRoutes/Controller/addHotel"
               method="post"
               className="m-0 p-3"
+              onSubmit={handleSubmitListingInfo}
             >
               <p className="text-secondary m-0">Listing Title</p>
               <input
@@ -24,6 +207,8 @@ const AddListing = () => {
                 className="input-group rounded-2 border border-1 p-3 mt-2"
                 placeholder="Decathlon Sport House"
                 name="name"
+                value={hotelDetails.name}
+                onChange={handleChange}
               />
               <div className="row m-0 p-0 pt-3">
                 <div className="col-6 m-0 p-0 pe-3">
@@ -32,13 +217,14 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="categories"
+                    value={hotelDetails.categories}
+                    onChange={handleChange}
                   >
-                    <option selected>Hotel &amp; Spa</option>
-                    <option value="Hotel & Spa">Hotel &amp; Spa</option>
+                    <option value="Hotel & Spa">Hotel & Spa</option>
                     <option value="Education">Education</option>
                     <option value="Wedding">Wedding</option>
-                    <option value="Restaurents">Restaurents</option>
-                    <option value="Cafe & Bars">Cafe &amp; Bars</option>
+                    <option value="Restaurants">Restaurants</option>
+                    <option value="Cafe & Bars">Cafe & Bars</option>
                     <option value="Bankings">Bankings</option>
                     <option value="Services">Services</option>
                   </select>
@@ -48,57 +234,60 @@ const AddListing = () => {
                   <input
                     type="text"
                     id="keywords"
-                    className="input-group input-group rounded-2 border border-1 p-3"
-                    placeholder="Type Keywords by comma's"
-                    name="HotelKeyword"
+                    className="input-group rounded-2 border border-1 p-3"
+                    placeholder="Type keywords separated by commas"
+                    name="HotelKeywords"
+                    value={hotelDetails.HotelKeywords}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
               <p className="text-secondary m-0 mt-3 p-0 pb-2">About Listing</p>
               <textarea
-                id
+                id="description"
                 cols={30}
                 rows={6}
                 className="form-control p-3"
-                placeholder="Describe your self"
+                placeholder="Describe your listing"
                 name="description"
-                defaultValue={""}
+                value={hotelDetails.description}
+                onChange={handleChange}
               />
-              <button type="submit" className="btn btn-primary mt-3">
-                Submit &amp; Preview
-              </button>
             </form>
           </div>
           {/* ========================= location Info ================================= */}
-          <div className="locationInfo card m-0 mt-5 p-0 border-0" style={{maxWidth:'100%'}}>
+          <div
+            className="locationInfo card m-0 mt-5 p-0 border-0"
+            style={{ maxWidth: "100%" }}
+          >
             <div className="row m-0 p-3 align-items-center border border-start-0 border-bottom-1 border-top-0 border-end-0">
               <i className="bi bi-geo-alt-fill text-primary w-auto m-0 p-0 pe-2" />
               <h4 className="fw-bold fs-6 w-auto m-0 p-0">Location Info</h4>
             </div>
-            <form
-              action="/adminRoutes/Controller/addLocality"
-              method="post"
-              className="m-0 p-3"
-            >
+            <form method="post" className="m-0 p-3">
               <div className="row m-0 p-0 pt-3">
                 <div className="col-6 m-0 p-0 pe-3">
-                  <p className="m-0 p-0 pb-2 text-secondary">Lattitude</p>
+                  <p className="m-0 p-0 pb-2 text-secondary">Latitude</p>
                   <input
                     type="text"
-                    id="keywords"
+                    id="latitude"
                     className="input-group input-group rounded-2 border border-1 p-3"
-                    placeholder={8054256}
-                    name="lattitude"
+                    placeholder="Enter latitude"
+                    name="latitude"
+                    value={hotelDetails.locality.latitude}
+                    onChange={handleLocalityChange}
                   />
                 </div>
                 <div className="col-6 m-0 p-0 ps-3">
                   <p className="m-0 p-0 pb-2 text-secondary">Longitude</p>
                   <input
                     type="text"
-                    id="keywords"
+                    id="longitude"
                     className="input-group input-group rounded-2 border border-1 p-3"
-                    placeholder={-7254625}
+                    placeholder="Enter longitude"
                     name="longitude"
+                    value={hotelDetails.locality.longitude}
+                    onChange={handleLocalityChange}
                   />
                 </div>
               </div>
@@ -116,15 +305,17 @@ const AddListing = () => {
               </div>
               <div className="row m-0 p-0 pt-3">
                 <div className="col-6 m-0 p-0 pe-3">
-                  <p className="m-0 p-0 pb-2 text-secondary">States</p>
+                  <p className="m-0 p-0 pb-2 text-secondary">State</p>
                   <select
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="state"
+                    value={hotelDetails.locality.state}
+                    onChange={handleLocalityChange}
                   >
-                    <option selected>Bihar</option>
+                    <option value="Bihar">Bihar</option>
                     <option value="Telangana">Telangana</option>
-                    <option value="Gujrat">Gujrat</option>
+                    <option value="Gujarat">Gujarat</option>
                     <option value="UP">UP</option>
                     <option value="Goa">Goa</option>
                     <option value="Delhi">Delhi</option>
@@ -138,8 +329,10 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="city"
+                    value={hotelDetails.locality.city}
+                    onChange={handleLocalityChange}
                   >
-                    <option selected>Darbhanga</option>
+                    <option value="Darbhanga">Darbhanga</option>
                     <option value="Hyderabad">Hyderabad</option>
                     <option value="Patna">Patna</option>
                     <option value="Aligarh">Aligarh</option>
@@ -155,20 +348,24 @@ const AddListing = () => {
                   <p className="m-0 p-0 pb-2 text-secondary">Address</p>
                   <input
                     type="text"
-                    id="keywords"
+                    id="address"
                     className="input-group input-group rounded-2 border border-1 p-3"
                     placeholder="ward 05, Near Jama masjid,Hayaghat"
                     name="address"
+                    value={hotelDetails.locality.address}
+                    onChange={handleLocalityChange}
                   />
                 </div>
                 <div className="col-6 m-0 p-0 ps-3">
                   <p className="m-0 p-0 pb-2 text-secondary">Zip Code</p>
                   <input
                     type="text"
-                    id="keywords"
+                    id="zip"
                     className="input-group input-group rounded-2 border border-1 p-3"
-                    placeholder={847301}
+                    placeholder="847301"
                     name="pin"
+                    value={hotelDetails.locality.pin}
+                    onChange={handleLocalityChange}
                   />
                 </div>
               </div>
@@ -177,38 +374,44 @@ const AddListing = () => {
                   <p className="m-0 p-0 pb-2 text-secondary">Mobile</p>
                   <input
                     type="text"
-                    id="keywords"
+                    id="mobile"
                     className="input-group input-group rounded-2 border border-1 p-3"
                     placeholder="+91 9973152523"
                     name="mobile"
+                    value={hotelDetails.locality.mobile}
+                    onChange={handleLocalityChange}
                   />
                 </div>
                 <div className="col-6 m-0 p-0 ps-3">
                   <p className="m-0 p-0 pb-2 text-secondary">Email</p>
                   <input
-                    type="text"
-                    id="keywords"
+                    type="email"
+                    id="email"
                     className="input-group input-group rounded-2 border border-1 p-3"
                     placeholder="hibbanrahmanhyt@gmail.com"
                     name="email"
+                    value={hotelDetails.locality.email}
+                    onChange={handleLocalityChange}
                   />
                 </div>
               </div>
               <p className="text-secondary m-0 mt-3 p-0 pb-2">Website</p>
               <input
                 type="text"
-                id="listingWebsite"
+                id="website"
                 className="input-group rounded-2 border border-1 p-3 mt-2"
                 placeholder="https://hibbanur-rahman.me/hotel-booking.com"
                 name="website"
+                value={hotelDetails.locality.website}
+                onChange={handleLocalityChange}
               />
-              <button type="submit" className="btn btn-primary mt-3">
-                Submit &amp; Preview
-              </button>
             </form>
           </div>
           {/* ========================= Image Gallery ================================= */}
-          <div className="ImageGallery card m-0 mt-5 p-0 border-0" style={{maxWidth:'100%'}}>
+          <div
+            className="ImageGallery card m-0 mt-5 p-0 border-0"
+            style={{ maxWidth: "100%" }}
+          >
             <div className="row m-0 p-3 align-items-center border border-start-0 border-bottom-1 border-top-0 border-end-0">
               <i className="bi bi-camera-fill text-primary w-auto m-0 p-0 pe-2" />
               <h4 className="fw-bold fs-6 w-auto m-0 p-0">
@@ -224,9 +427,12 @@ const AddListing = () => {
               <div className="row m-0 p-0">
                 <div className="col-4 uploadFile">
                   <p className="m-0 p-0 pb-2 text-secondary">Upload Logo</p>
-                  <div className="imagePreviewCard card  p-0 m-0 mt-0 d-flex justify-content-center align-items-center rounded-4 d-none" style={{marginTop:'0px'}}>
+                  <div
+                    className="imagePreviewCard card  p-0 m-0 mt-0 d-flex justify-content-center align-items-center rounded-4 d-none"
+                    style={{ marginTop: "0px" }}
+                  >
                     <img
-                      src="../../images/adminDashboard/car-img.png"
+                      src={carImg}
                       alt
                       className="img-fluid rounded-4 h-100 w-auto"
                     />
@@ -242,7 +448,7 @@ const AddListing = () => {
                       />
                     </div>
                     <img
-                      src="../../images/adminDashboard/upload-icon.png"
+                      src={uploadIcon}
                       alt
                       width={50}
                       height={50}
@@ -260,7 +466,7 @@ const AddListing = () => {
                   <p className="m-0 p-0 pb-2 text-secondary">Featured Image</p>
                   <div className="imagePreviewCard card  p-0 m-0 mt-0 d-flex justify-content-center align-items-center rounded-4 d-none">
                     <img
-                      src="../../images/adminDashboard/car-img.png"
+                      src={carImg}
                       alt
                       className="img-fluid rounded-4 h-100 w-auto"
                     />
@@ -276,7 +482,7 @@ const AddListing = () => {
                       />
                     </div>
                     <img
-                      src="../../images/adminDashboard/upload-icon.png"
+                      src={uploadIcon}
                       alt
                       width={50}
                       height={50}
@@ -294,7 +500,7 @@ const AddListing = () => {
                   <p className="m-0 p-0 pb-2 text-secondary">Image Gallery</p>
                   <div className="imagePreviewCard card mt-0 p-0 m-0 d-flex justify-content-center align-items-center rounded-4 d-none">
                     <img
-                      src="../../images/adminDashboard/car-img.png"
+                      src={carImg}
                       alt
                       className="img-fluid rounded-4 h-100 w-auto"
                     />
@@ -310,7 +516,7 @@ const AddListing = () => {
                       />
                     </div>
                     <img
-                      src="../../images/adminDashboard/upload-icon.png"
+                      src={uploadIcon}
                       alt
                       width={50}
                       height={50}
@@ -325,82 +531,90 @@ const AddListing = () => {
                   </p>
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary mt-3">
-                Submit &amp; Preview
-              </button>
             </form>
           </div>
           {/* ========================= Menu Items ================================= */}
-          <div className="menuItems card m-0 mt-5 p-0 border-0" style={{maxWidth:'100%'}}>
+          <div
+            className="menuItems card m-0 mt-5 p-0 border-0"
+            style={{ maxWidth: "100%" }}
+          >
             <div className="row m-0 p-3 align-items-center border border-start-0 border-bottom-1 border-top-0 border-end-0">
               <i className="las la-utensils text-primary w-auto m-0 p-0 pe-2" />
               <h4 className="fw-bold fs-6 w-auto m-0 p-0">Menu Items</h4>
             </div>
             <div className="row m-0 p-0 manyForm">
-              <form
-                action="/adminRoutes/Controller/addMenu"
-                method="post"
-                className="m-0 p-3 menuItemsForm"
-                id="menuItemsForm"
-              >
-                <div className="row m-0 p-0 pt-3">
-                  <div className="col-4 m-0 p-0 pe-3">
-                    <p className="m-0 p-0 pb-2 text-secondary">Item Name</p>
-                    <input
-                      type="text"
-                      id="keywords"
-                      className="input-group input-group rounded-2 border border-1 p-3"
-                      placeholder="Spicy Brunchi Burger"
-                      name="ItemName"
-                    />
+              {hotelDetails.menuItems.map((menuItem, index) => (
+                <form
+                  key={index}
+                  action="/adminRoutes/Controller/addMenu"
+                  method="post"
+                  className="m-0 p-3 menuItemsForm"
+                  id="menuItemsForm"
+                >
+                  <div className="row m-0 p-0 pt-3">
+                    <div className="col-4 m-0 p-0 pe-3">
+                      <p className="m-0 p-0 pb-2 text-secondary">Item Name</p>
+                      <input
+                        type="text"
+                        className="input-group input-group rounded-2 border border-1 p-3"
+                        placeholder="Spicy Brunchi Burger"
+                        name="ItemName"
+                        value={menuItem.ItemName}
+                        onChange={(e) => handleMenuItemChange(index, e)}
+                      />
+                    </div>
+                    <div className="col-4 m-0 p-0 ps-3">
+                      <p className="m-0 p-0 pb-2 text-secondary">Category</p>
+                      <input
+                        type="text"
+                        className="input-group input-group rounded-2 border border-1 p-3"
+                        placeholder="Fast Food"
+                        name="ItemCategory"
+                        value={menuItem.ItemCategory}
+                        onChange={(e) => handleMenuItemChange(index, e)}
+                      />
+                    </div>
+                    <div className="col-4 m-0 p-0 ps-3">
+                      <p className="m-0 p-0 pb-2 text-secondary">Price</p>
+                      <input
+                        type="text"
+                        className="input-group input-group rounded-2 border border-1 p-3"
+                        placeholder="ex. 49 USD"
+                        name="ItemPrice"
+                        value={menuItem.ItemPrice}
+                        onChange={(e) => handleMenuItemChange(index, e)}
+                      />
+                    </div>
                   </div>
-                  <div className="col-4 m-0 p-0 ps-3">
-                    <p className="m-0 p-0 pb-2 text-secondary">Category</p>
-                    <input
-                      type="text"
-                      id="keywords"
-                      className="input-group input-group rounded-2 border border-1 p-3"
-                      placeholder="Fast Food"
-                      name="ItemCategory"
-                    />
-                  </div>
-                  <div className="col-4 m-0 p-0 ps-3">
-                    <p className="m-0 p-0 pb-2 text-secondary">Price</p>
-                    <input
-                      type="text"
-                      id="keywords"
-                      className="input-group input-group rounded-2 border border-1 p-3"
-                      placeholder="ex. 49 USD"
-                      name="ItemPrice"
-                    />
-                  </div>
-                </div>
-                <p className="text-secondary m-0 mt-3 p-0 pb-2">About Item</p>
-                <textarea
-                  cols={30}
-                  rows={6}
-                  className="form-control p-3"
-                  placeholder="Describe your Item"
-                  name="ItemDescription"
-                  defaultValue={""}
-                />
-              </form>
+                  <p className="text-secondary m-0 mt-3 p-0 pb-2">About Item</p>
+                  <textarea
+                    cols={30}
+                    rows={6}
+                    className="form-control p-3"
+                    placeholder="Describe your Item"
+                    name="ItemDescription"
+                    value={menuItem.ItemDescription}
+                    onChange={(e) => handleMenuItemChange(index, e)}
+                  />
+                </form>
+              ))}
             </div>
             <div className="row m-0 p-3 pt-0">
-              <button className="btn btn-primary mt-3 w-auto" id="addMenu">
-                Add New
-              </button>
               <button
                 type="button"
-                className="btn btn-primary mt-3 w-auto ms-3"
-                id="submitMenuItems"
+                className="btn btn-primary mt-3 w-auto"
+                onClick={handleAddMenuItem}
               >
-                submit &amp; preview
+                Add New
               </button>
             </div>
           </div>
-          {/* ========================= Working Our ================================= */}
-          <div className="WorkingHours card m-0 mt-5 p-0 border-0" style={{maxWidth:'100%'}}>
+
+          {/* ========================= Working hour ================================= */}
+          <div
+            className="WorkingHours card m-0 mt-5 p-0 border-0"
+            style={{ maxWidth: "100%" }}
+          >
             <div className="row m-0 p-3 align-items-center border border-start-0 border-bottom-1 border-top-0 border-end-0">
               <i className="bi bi-clock-fill text-primary w-auto m-0 p-0 pe-2" />
               <h4 className="fw-bold fs-6 w-auto m-0 p-0">Working Hours</h4>
@@ -417,32 +631,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="MondayOpening"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
                 <div className="col-5 m-0 p-0 pe-3">
@@ -450,32 +641,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="MondayClosing"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
               </div>
@@ -486,32 +654,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="TuesdayOpening"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
                 <div className="col-5 m-0 p-0 pe-3">
@@ -519,32 +664,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="TuesdayClosing"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
               </div>
@@ -555,32 +677,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="WednessdayOpening"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
                 <div className="col-5 m-0 p-0 pe-3">
@@ -588,32 +687,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="WednessdayClosing"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
               </div>
@@ -624,32 +700,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="ThursdayOpening"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
                 <div className="col-5 m-0 p-0 pe-3">
@@ -657,32 +710,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="ThursdayClosing"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
               </div>
@@ -693,32 +723,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="FridayOpening"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
                 <div className="col-5 m-0 p-0 pe-3">
@@ -726,32 +733,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="FridayClosing"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
               </div>
@@ -762,32 +746,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="SaturdayOpening"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
                 <div className="col-5 m-0 p-0 pe-3">
@@ -795,32 +756,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="SaturdayClosing"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
               </div>
@@ -831,32 +769,9 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="SundayOpening"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
                 <div className="col-5 m-0 p-0 pe-3">
@@ -864,58 +779,28 @@ const AddListing = () => {
                     className="form-select m-0 border-1 p-3"
                     aria-label="select"
                     name="SundayClosing"
+                    onChange={handleWorkingHoursChange}
                   >
-                    <option selected>Opening Time</option>
-                    <option value="1:00 AM">1:00 AM</option>
-                    <option value="2:00 AM">2:00 AM</option>
-                    <option value="3:00 AM">3:00 AM</option>
-                    <option value="4:00 AM">4:00 AM</option>
-                    <option value="5:00 AM">5:00 AM</option>
-                    <option value="6:00 AM">6:00 AM</option>
-                    <option value="7:00 AM">7:00 AM</option>
-                    <option value="8:00 AM">8:00 AM</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                    <option value="7:00 PM">7:00 PM</option>
-                    <option value="8:00 PM">8:00 PM</option>
-                    <option value="9:00 PM">9:00 PM</option>
-                    <option value="10:00 PM">10:00 PM</option>
-                    <option value="11:00 PM">11:00 PM</option>
-                    <option value="Closing Time">Closing Time</option>
+                    <OptionForWorkingHours />
                   </select>
                 </div>
               </div>
-              <button
-                type="submit"
-                className="btn btn-primary mt-3 w-auto"
-                id="submitMenuItems"
-              >
-                submit &amp; preview
-              </button>
             </form>
           </div>
           {/* ========================= Amentities Info ================================= */}
-          <div className="AmentiesOptions card m-0 mt-5 p-0 border-0" style={{maxWidth:'100%'}}>
+          <div
+            className="AmentiesOptions card m-0 mt-5 p-0 border-0"
+            style={{ maxWidth: "100%" }}
+          >
             <div className="row m-0 p-3 align-items-center border border-start-0 border-bottom-1 border-top-0 border-end-0">
               <i className="bi bi-cup-hot text-primary w-auto m-0 p-0 pe-2" />
               <h4 className="fw-bold fs-6 w-auto m-0 p-0">Amenties Options</h4>
             </div>
-            <form
-              action="/adminRoutes/Controller/addAmenities"
-              method="post"
-              className="m-0 p-3"
-            >
+            <form method="post" className="m-0 p-3">
               <div className="row m-0 p-0 mb-3">
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     id="HealthScore"
                     name="HealthScore"
@@ -930,6 +815,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="Reservations"
                     id="Reservations"
@@ -944,6 +830,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="VegetarianOptions"
                     id="VegetarianOptions"
@@ -960,6 +847,7 @@ const AddListing = () => {
               <div className="row m-0 p-0 mb-3 mt-3">
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="ModerateNoise"
                     id="ModerateNoise"
@@ -974,6 +862,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="GoodForKids"
                     id="GoodForKids"
@@ -988,6 +877,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="PrivateLotParking"
                     id="PrivateLotParking"
@@ -1004,6 +894,7 @@ const AddListing = () => {
               <div className="row m-0 p-0 mb-3 mt-3">
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="BeerWine"
                     id="BeerWine"
@@ -1018,6 +909,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="TVServices"
                     id="TVServices"
@@ -1032,6 +924,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="PetsAllow"
                     id="PetsAllow"
@@ -1048,6 +941,7 @@ const AddListing = () => {
               <div className="row m-0 p-0 mb-3 mt-3">
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="OffersDelivery"
                     id="OffersDelivery"
@@ -1062,6 +956,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     nam="StaffWearsMasks"
                     id="StaffWearsMasks"
@@ -1076,6 +971,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="AcceptsCreditCards"
                     id="AcceptsCreditCards"
@@ -1092,6 +988,7 @@ const AddListing = () => {
               <div className="row m-0 p-0 mb-3 mt-3">
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="OffersCatering"
                     id="OffersCatering"
@@ -1106,6 +1003,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="GoodforBreakfast"
                     id="GoodforBreakfast"
@@ -1120,6 +1018,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="WaiterService"
                     id="WaiterService"
@@ -1136,6 +1035,7 @@ const AddListing = () => {
               <div className="row m-0 p-0 mb-3 mt-3">
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="DriveThru"
                     id="DriveThru"
@@ -1150,6 +1050,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="OutdoorSeating"
                     id="OutdoorSeating"
@@ -1164,6 +1065,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="OffersTakeout"
                     id="OffersTakeout"
@@ -1180,6 +1082,7 @@ const AddListing = () => {
               <div className="row m-0 p-0 mb-3 mt-3">
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="VeganOptions"
                     id="VeganOptions"
@@ -1194,6 +1097,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="Casual"
                     id="Casual"
@@ -1208,6 +1112,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="GoodForGroups"
                     id="GoodForGroups"
@@ -1224,6 +1129,7 @@ const AddListing = () => {
               <div className="row m-0 p-0 mb-3 mt-3">
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="BrunchLunchDinner"
                     id="BrunchLunchDinner"
@@ -1238,6 +1144,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="FreeWiFi"
                     id="FreeWiFi"
@@ -1252,6 +1159,7 @@ const AddListing = () => {
                 </div>
                 <div className="col-4 d-flex align-items-center ">
                   <input
+                    onChange={handleAmenitiesChange}
                     type="checkbox"
                     name="WheelchairAccessible"
                     id="WheelchairAccessible"
@@ -1265,22 +1173,18 @@ const AddListing = () => {
                   </label>
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary mt-3">
-                Submit &amp; Preview
-              </button>
             </form>
           </div>
           {/* ========================= Social Links Info ================================= */}
-          <div className="SocialLinks card m-0 mt-5 p-0 border-0" style={{maxWidth:'100%'}}>
+          <div
+            className="SocialLinks card m-0 mt-5 p-0 border-0"
+            style={{ maxWidth: "100%" }}
+          >
             <div className="row m-0 p-3 align-items-center border border-start-0 border-bottom-1 border-top-0 border-end-0">
               <i className="bi bi-people-fill text-primary w-auto m-0 p-0 pe-2" />
               <h4 className="fw-bold fs-6 w-auto m-0 p-0">Social Links</h4>
             </div>
-            <form
-              action="/adminRoutes/Controller/addSocialLink"
-              method="post"
-              className="m-0 p-3"
-            >
+            <form method="post" className="m-0 p-3">
               <div className="row m-0 p-0 pt-3">
                 <div className="col-6 m-0 p-0 pe-3">
                   <div className="row m-0 p-0 d-flex align-items-center mb-2">
@@ -1295,6 +1199,8 @@ const AddListing = () => {
                     className="input-group input-group rounded-2 border border-1 p-3"
                     placeholder="https://facebook.com/"
                     name="facebook"
+                    value={hotelDetails.socialLinks.facebook}
+                    onChange={handleSocialLinksChange}
                   />
                 </div>
                 <div className="col-6 m-0 p-0 ps-3">
@@ -1310,6 +1216,8 @@ const AddListing = () => {
                     className="input-group input-group rounded-2 border border-1 p-3"
                     placeholder="https://twitter.com/"
                     name="twitter"
+                    value={hotelDetails.socialLinks.twitter}
+                    onChange={handleSocialLinksChange}
                   />
                 </div>
               </div>
@@ -1327,6 +1235,8 @@ const AddListing = () => {
                     className="input-group input-group rounded-2 border border-1 p-3"
                     placeholder="https://instagram.com/"
                     name="instagram"
+                    value={hotelDetails.socialLinks.instagram}
+                    onChange={handleSocialLinksChange}
                   />
                 </div>
                 <div className="col-6 m-0 p-0 ps-3">
@@ -1342,17 +1252,54 @@ const AddListing = () => {
                     className="input-group input-group rounded-2 border border-1 p-3"
                     placeholder="https://linkedin.com/"
                     name="linkedin"
+                    value={hotelDetails.socialLinks.linkedin}
+                    onChange={handleSocialLinksChange}
                   />
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary mt-3">
-                Submit &amp; Preview
-              </button>
             </form>
           </div>
         </div>
+        <button
+          onClick={handleSubmitListingInfo}
+          className="btn btn-primary mt-3"
+        >
+          Submit &amp; Preview
+        </button>
       </div>
     </div>
+  );
+};
+
+const OptionForWorkingHours = () => {
+  return (
+    <>
+      <option selected>Opening Time</option>
+      <option value="1:00 AM">1:00 AM</option>
+      <option value="2:00 AM">2:00 AM</option>
+      <option value="3:00 AM">3:00 AM</option>
+      <option value="4:00 AM">4:00 AM</option>
+      <option value="5:00 AM">5:00 AM</option>
+      <option value="6:00 AM">6:00 AM</option>
+      <option value="7:00 AM">7:00 AM</option>
+      <option value="8:00 AM">8:00 AM</option>
+      <option value="9:00 AM">9:00 AM</option>
+      <option value="10:00 AM">10:00 AM</option>
+      <option value="11:00 AM">11:00 AM</option>
+      <option value="12:00 PM">12:00 PM</option>
+      <option value="1:00 PM">1:00 PM</option>
+      <option value="2:00 PM">2:00 PM</option>
+      <option value="3:00 PM">3:00 PM</option>
+      <option value="4:00 PM">4:00 PM</option>
+      <option value="5:00 PM">5:00 PM</option>
+      <option value="6:00 PM">6:00 PM</option>
+      <option value="7:00 PM">7:00 PM</option>
+      <option value="8:00 PM">8:00 PM</option>
+      <option value="9:00 PM">9:00 PM</option>
+      <option value="10:00 PM">10:00 PM</option>
+      <option value="11:00 PM">11:00 PM</option>
+      <option value="Closing Time">Closing Time</option>
+    </>
   );
 };
 
